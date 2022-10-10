@@ -1,10 +1,14 @@
+///////dependencies//////////////
 require("dotenv").config()
 const express = require("express")
 
+const middleware = require("./utility/middleware")
 
+////express application object////////
+const app = require("liquid-express-views")(express())
 
-
-
+//////Middleware/////
+middleware(app)
 
 
 
