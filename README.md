@@ -37,6 +37,10 @@ A full-stack web app for music ensembles to manage repertoire and setlists
 
 ![Entity Relationships](/wireframes/EntityRelationships.png)
 
+## Seed Data
+I will seed the database with a user, a group and all of their songs, and a set list.  All will be seeded with owner to be automatically related to each other.
+
+
 ## Schedule for the Week
 
 #### Monday: Schema and models, basic setup of files, installations
