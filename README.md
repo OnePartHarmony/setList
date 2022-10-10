@@ -39,9 +39,9 @@ A full-stack web app for music ensembles to manage repertoire and setlists
 
 ## Schedule for the Week
 
-Monday: Schema and models, basic setup of files, installations
-Tuesday: Controllers
-Wednesday: Views
-Thursday: start styling / reassess how far I've gotten and reduce or add details, plan for Friday
-Friday: execute new plan
-Sunday: finishing details / submit project. 
+#### Monday: Schema and models, basic setup of files, installations
+#### Tuesday: Controllers
+#### Wednesday: Views
+#### Thursday: start styling / reassess how far I've gotten and reduce or add details, plan for Friday
+#### Friday: execute new plan
+#### Sunday: finishing details / submit project. 
