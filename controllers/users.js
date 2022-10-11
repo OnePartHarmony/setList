@@ -48,7 +48,7 @@ router.post("/login", async (req,res) => {
                     req.session.email = user.emailAddress
                     console.log("this is req.session: ", req.session)
 
-                    res.redirect("/")
+                    res.redirect("/groups")
                 } else {
                     res.redirect(`/error?error=password%20incorrect`)
                 }
