@@ -8,9 +8,9 @@ const router = express.Router()
 ////////////ROUTES//////
 
 /////////GET route to view all songs by group////////
-router.get("/", (req,res) => {
+// router.get("/", (req,res) => {
 
-})
+// })
 
 /////////GET route to render new song form///////////
 router.get("/new", (req,res) => {
@@ -23,39 +23,39 @@ router.get("/new", (req,res) => {
 })
 
 ////////POST route to create new song////////////
-router.post("/new", (req,res) => {
+// router.post("/new", (req,res) => {
 
-})
+// })
 
 ////////GET route to show song///////////
-router.get("/:songId", (req,res) => {
-    const songId = req.params.songId
+// router.get("/:songId", (req,res) => {
+//     const songId = req.params.songId
 
-})
+// })
 
 //////////GET route to render edit song form////////////
-router.get("/edit/:songId", (req,res) => {
-    const songId = req.params.songId
+// router.get("/edit/:songId", (req,res) => {
+//     const songId = req.params.songId
 
-})
+// })
 
 ///////PUT route to update song///////////////
-router.put("/:songId", (req,res) => {
-    const songId = req.params.songId
+// router.put("/:songId", (req,res) => {
+//     const songId = req.params.songId
 
-})
+// })
 
 ////////GET route to render delete song page////////////
-router.get("/delete/:songId", (req,res) => {
-    const songId = req.params.songId
+// router.get("/delete/:songId", (req,res) => {
+//     const songId = req.params.songId
 
-})
+// })
 
 ///////////DELETE route to delete song////////////
-router.delete("/delete/:songId", (req,res) => {
-    const songId = req.params.songId
+// router.delete("/delete/:songId", (req,res) => {
+//     const songId = req.params.songId
 
-})
+// })
 
 
 

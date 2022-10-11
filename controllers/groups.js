@@ -70,28 +70,28 @@ router.post("/:groupId", (req,res) => {
 })
 
 //////////GET route to render edit group form////////////
-router.get("/edit/:groupId", (req,res) => {
-    const groupId = req.params.groupId
+// router.get("/edit/:groupId", (req,res) => {
+//     const groupId = req.params.groupId
 
-})
+// })
 
 ///////PUT route to update group///////////////
-router.put("/:groupId", (req,res) => {
-    const groupId = req.params.groupId
+// router.put("/:groupId", (req,res) => {
+//     const groupId = req.params.groupId
 
-})
+// })
 
 ////////GET route to render delete group page////////////
-router.get("/delete/:groupId", (req,res) => {
-    const groupId = req.params.groupId
+// router.get("/delete/:groupId", (req,res) => {
+//     const groupId = req.params.groupId
 
-})
+// })
 
 ///////////DELETE route to delete group////////////
-router.delete("/:groupId", (req,res) => {
-    const groupId = req.params.groupId
+// router.delete("/:groupId", (req,res) => {
+//     const groupId = req.params.groupId
 
-})
+// })
 
 
 
