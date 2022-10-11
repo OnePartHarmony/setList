@@ -4,12 +4,13 @@ const express = require("express")
 const middleware = require("./utility/middleware")
 
 ///////////import routes///////////////
-const UserRouter = require(".controllers/users")
+const UserRouter = require("./controllers/users")
 const GroupRouter = require("./controllers/groups")
 const SongRouter = require("./controllers/songs")
 
 ////express application object////////
-const app = require("liquid-express-views")(express())
+const path = require("path")
+const app = require("liquid-express-views")(express(), {root: [path.resolve(__dirname, 'views/')]})
 
 //////Middleware/////
 middleware(app)

@@ -1,0 +1,12 @@
+body {
+    background-color: black;
+    color: white;
+}
+
+h1 {
+    color: white;
+}
+
+.form-control {
+    margin-bottom: 20px;
+}
