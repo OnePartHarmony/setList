@@ -64,10 +64,8 @@ router.post("/login", async (req,res) => {
 
 ///////GET route to render logout////////
 router.get("/logout", (req,res) => {
-    const username = req.session.username
-    const loggedIn = req.session.loggedIn
-    const userId = req.session.userId
-    res.render("users/logout", {username, loggedIn, userId})
+    const session = req.session
+    res.render("users/logout", {session})
 })
 
 /////////logout route/////////////

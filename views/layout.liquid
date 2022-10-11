@@ -18,7 +18,7 @@
 
 <body>
     <header>
-        {% render './navbar.liquid', loggedIn: loggedIn, username: username, userId: userId %}
+        {% render './navbar.liquid', session: session %}
     </header>
     <main>
         {% block content %} 

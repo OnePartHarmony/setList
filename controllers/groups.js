@@ -9,59 +9,54 @@ const router = express.Router()
 
 //////GET route to show all groups user is in///////////
 router.get("/", (req,res) => {
-    Group.find({members: req.session.email})
+    const session = req.session
+    Group.find({members: session.email})
         .then(groups => {
-            const username = req.session.username
-            const loggedIn = req.session.loggedIn
-            const userId = req.session.userId
-            const email = req.session.email
-            res.render("groups/index", {username, loggedIn, userId, email, groups})
+            res.render("groups/index", {groups, session})
         })
         .catch(err => res.redirect(`/error?error=${err}`))
 })
 
 /////////GET route to render new group form///////////
 router.get("/new", (req,res) => {
-    const username = req.session.username
-    const loggedIn = req.session.loggedIn
-    const userId = req.session.userId
-    const email = req.session.email
-    res.render("groups/new", {username, loggedIn, userId, email})
+    const session = req.session
+    res.render("groups/new", {session})
 })
 
 /////////POST route to create new group///////////////
-router.post("/new", (req,res) => {
+router.post("/", (req,res) => {
     req.body.owner = req.session.userId
+    let memberString = req.body.members
+    memberString = memberString.replace(" ", "")
+    const memberArray = memberString.split(",")
+    req.body.members = memberArray
     Group.create(req.body)
         .then(group => {
+            console.log(group)
             res.redirect("/groups")
         })
         .catch(err => res.redirect(`/error?error=${err}`))
 })
 
 /////GET route to render show group page////////////
-router.get("/:groupId", (req,res) => {
+router.get("/:groupId", (req,res) => {    
     const groupId = req.params.groupId
-    const username = req.session.username
-    const loggedIn = req.session.loggedIn
-    const userId = req.session.userId
-    const email = req.session.email
-    const currentGroup = req.session.groupId
+    const session = req.session
     Group.findById(groupId)
         .then(group => {
-            res.render("/groups/show", {group, username, loggedIn, userId, email, currentGroup})
+            res.render("/groups/show", {group, session})
         })
         .catch(err => res.redirect(`/error?error=${err}`))
 })
 
-////////POST route to work as group///////////////
+////////POST route to create group///////////////
 router.post("/:groupId", (req,res) => {
     const groupId = req.params.groupId    
     Group.findById(groupId)
         .then(group => {
             if (group.members.includes(req.session.email)) {
                 req.session.groupId = groupId
-                res.redirect("/songs")
+                res.redirect("/groups")
             } else {
                 res.redirect(`/error?error=not%20a%20member%20of%20${group.name}`)
             }
@@ -69,9 +64,31 @@ router.post("/:groupId", (req,res) => {
         .catch(err => { res.redirect(`/error?error=${err}`)})
 })
 
+/////////POST route to login as group////////////
+router.post("/login/:groupId", (req,res) => {
+    const groupId = req.params.groupId  
+    Group.findById(groupId)
+        .then((group) => {
+                if (group.members.includes(req.session.email)) {
+                    req.session.groupName = group.name
+                    req.session.groupId = groupId
+                    req.session.groupImg = group.img
+                    req.session.members = group.members
+                    console.log("this is req.session: ", req.session)
+                    res.redirect("/songs")
+                } else {
+                    res.redirect(`/error?error=members%20of%20${group.name}%20only`)
+                }
+        })
+        .catch(err => {
+            res.redirect(`/error?error=${err}`)
+        })
+})
+
 //////////GET route to render edit group form////////////
 // router.get("/edit/:groupId", (req,res) => {
 //     const groupId = req.params.groupId
+    // const session = req.session
 
 // })
 
@@ -84,7 +101,7 @@ router.post("/:groupId", (req,res) => {
 ////////GET route to render delete group page////////////
 // router.get("/delete/:groupId", (req,res) => {
 //     const groupId = req.params.groupId
-
+    // const session = req.session
 // })
 
 ///////////DELETE route to delete group////////////
