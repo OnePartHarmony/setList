@@ -17,13 +17,13 @@ router.get("/", (req,res) => {
         .catch(err => res.redirect(`/error?error=${err}`))
 })
 
-/////////GET route to render new song form///////////
+/////////GET route to render NEW song form///////////
 router.get("/new", (req,res) => {
     const session = req.session
     res.render("songs/new", {session})
 })
 
-////////POST route to create new song////////////
+////////POST route to CREATE new song////////////
 router.post("/", (req,res) => {
     req.body.owner = req.session.groupId
     let keywordString = req.body.keywords
@@ -38,7 +38,7 @@ router.post("/", (req,res) => {
         .catch(err => res.redirect(`/error?error=${err}`))
 })
 
-////////GET route to show song///////////
+////////GET route to SHOW song///////////
 router.get("/:songId", (req,res) => {
     const songId = req.params.songId
     const session = req.session
@@ -50,7 +50,7 @@ router.get("/:songId", (req,res) => {
 
 })
 
-//////////GET route to render edit song form////////////
+//////////GET route to render EDIT song form////////////
 router.get("/edit/:songId", (req,res) => {
     const songId = req.params.songId
     const session = req.session
@@ -61,24 +61,52 @@ router.get("/edit/:songId", (req,res) => {
         .catch(err => res.redirect(`/error?error=${err}`))
 })
 
-///////PUT route to update song///////////////
-// router.put("/:songId", (req,res) => {
-//     const songId = req.params.songId
-
-// })
+///////PUT route to UPDATE song///////////////
+router.put("/:songId", (req,res) => {
+    const songId = req.params.songId
+    let keywordString = req.body.keywords
+    let keywordArray = keywordString.split(",")
+    let spacelessArray = keywordArray.map(word => { return word.trim() })
+    req.body.keywords = spacelessArray
+    Song.findById(songId)
+        .then(song => {
+            if (song.owner == req.session.groupId) {
+                return song.updateOne(req.body)
+            } else {
+                res.redirect(`/error?error=song%20may%20only%20be%20updated%20by%20members%20of%20group`)
+            }
+        })
+        .then(()=>{
+            res.redirect(`/songs/${songId}`)
+        })
+        .catch(err => res.redirect(`/error?error=${err}`))
+})
 
 ////////GET route to render delete song page////////////
-// router.get("/delete/:songId", (req,res) => {
-//     const songId = req.params.songId
-// const session = req.session
-
-// })
+router.get("/delete/:songId", (req,res) => {
+    const songId = req.params.songId
+    const session = req.session
+    Song.findById(songId)
+        .then(song => {
+            res.render("songs/delete", {song, session})
+        })
+        .catch(err => res.redirect(`/error?error=${err}`))
+})
 
 ///////////DELETE route to delete song////////////
-// router.delete("/delete/:songId", (req,res) => {
-//     const songId = req.params.songId
-
-// })
+router.delete("/:songId", (req,res) => {
+    const songId = req.params.songId
+    Song.findById(songId)
+        .then(song => {
+            if (song.owner == req.session.groupId) {
+                song.deleteOne()
+                res.redirect("/songs")
+            } else {
+                res.redirect(`/error?error=only%20group%20members%20may%20delete%20songs`)
+            }
+        })
+        .catch(err => res.redirect(`/error?error=${err}`))
+})
 
 
 

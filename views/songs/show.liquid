@@ -8,9 +8,7 @@
     {% if session.groupId == song.owner %}
         <div class="btn-group">
             <a class="btn btn-primary" href="/songs/edit/{{song.id}}">Edit Song</a>
-            <form action="/songs/{{song.id}}?_method=DELETE" method="POST">
-                <input class="btn btn-danger" type="submit" value="Delete Song">
-            </form>
+            <a class="btn btn-danger" href="/songs/delete/{{song.id}}">Delete Song</a>
         </div>
     {% endif %}
 
