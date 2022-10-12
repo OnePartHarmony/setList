@@ -2,6 +2,19 @@
 {% block content %}
     <h1>{{song.name}}</h1>
     <h4>{{song.description}}</h4>
+    {%- comment -%} Display key with symbols for sharp or flat {%- endcomment -%}
+    <h5>Key: {{song.key}}
+        {% if song.sharp %}
+        {{- "&#x266F" -}}
+        {% endif %}
+        {% if song.flat %}
+        {{- "&#x266D" -}}
+        {% endif %}
+        {% if song.minor %}
+        {{- "m" -}}
+        {% endif %}
+    </h5>
+    {%- comment -%} Display length in format 0:00 {%- endcomment -%}
     <h5>Length: {{song.minutes}}{{- ":" -}}
         {% if song.seconds < 10 %}
             {{- "0" -}}{{- song.seconds -}}

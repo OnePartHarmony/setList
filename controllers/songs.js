@@ -26,10 +26,15 @@ router.get("/new", (req,res) => {
 ////////POST route to CREATE new song////////////
 router.post("/", (req,res) => {
     req.body.owner = req.session.groupId
+    ///change keywords input by user into an array///////
     let keywordString = req.body.keywords
     let keywordArray = keywordString.split(",")
     let spacelessArray = keywordArray.map(word => { return word.trim() })
-    req.body.keywords = spacelessArray    
+    req.body.keywords = spacelessArray
+    ////change inputs from checkboxes into booleans//////
+    req.body.sharp = req.body.sharp === "on" ? true : false
+    req.body.flat = req.body.flat === "on" ? true : false
+    req.body.minor = req.body.minor === "on" ? true : false
     Song.create(req.body)
         .then(song => {
             console.log("new song: ", song)
@@ -64,10 +69,15 @@ router.get("/edit/:songId", (req,res) => {
 ///////PUT route to UPDATE song///////////////
 router.put("/:songId", (req,res) => {
     const songId = req.params.songId
+    ///change keywords input by user into an array///////
     let keywordString = req.body.keywords
     let keywordArray = keywordString.split(",")
     let spacelessArray = keywordArray.map(word => { return word.trim() })
     req.body.keywords = spacelessArray
+    ////change inputs from checkboxes into booleans//////
+    req.body.sharp = req.body.sharp === "on" ? true : false
+    req.body.flat = req.body.flat === "on" ? true : false
+    req.body.minor = req.body.minor === "on" ? true : false
     Song.findById(songId)
         .then(song => {
             if (song.owner == req.session.groupId) {

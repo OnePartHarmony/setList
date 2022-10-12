@@ -1,5 +1,9 @@
 {% layout "layout.liquid" %}
 {% block content %}
-
-
+    {% if session.groupName %}
+        <h1>{{session.groupName}}'s Set Lists</h1>
+    {% else %}
+        <h1>Work as one of your groups to view set lists.</h1>
+        <a class="btn btn-outline-warning" href="/groups">Your Groups</a>
+    {% endif %}
 {% endblock %}

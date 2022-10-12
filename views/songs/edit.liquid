@@ -7,6 +7,36 @@
         <legend>Edit {{song.name}}</legend>
         <label class="form-label">Title:</label>
         <input class="form-control mb-4" type="text" name="name" value="{{song.name}}" required>
+        <label class="form-label">Key:</label>
+        <input class="form-control mb-4 me-4" style="width: 100px; display: inline-block" list="keyList" name="key" value="{{song.key}}" required>
+          <datalist id="keyList">
+              <option value="A"></option>
+              <option value="B"></option>
+              <option value="C"></option>
+              <option value="D"></option>
+              <option value="E"></option>
+              <option value="F"></option>
+              <option value="G"></option>
+          </datalist>
+        <label class="form-label">Sharp?</label>
+        <input class="form-check-input mb-4" type="checkbox" name="sharp" 
+        {% if song.sharp %}
+        checked
+        {% endif %}
+        >
+        <label class="form-label ms-4">Flat?</label>
+        <input class="form-check-input mb-4" type="checkbox" name="flat" 
+        {% if song.flat %}
+        checked
+        {% endif %}
+        >
+        <label class="form-label ms-4">Minor?</label>
+        <input class="form-check-input mb-4" type="checkbox" name="minor"
+        {% if song.minor %}
+        checked
+        {% endif %}
+        >
+        <br>
         <label class="form-label">Description:</label>
         <input class="form-control mb-4" type="text" name="description" value="{{song.description}}">
         <label class="form-label">Song Length</label>
@@ -19,7 +49,7 @@
         <label class="form-label">Soloist / Lead Vocalist (optional):</label>
         <input class="form-control mb-4" type="text" name="soloist" value="{{song.soloist}}">
         <label class="form-label">Keywords (comma separated):</label>
-        <input class="form-control mb-4" type="text" name="keywords" value="{{song.keywords | join: ","}">
+        <input class="form-control mb-4" type="text" name="keywords" value="{{song.keywords | join: ","}}">
       </fieldset>
       <input class="btn btn-success" type="submit" value="Update Song">
     </form>

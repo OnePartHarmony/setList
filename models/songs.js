@@ -29,6 +29,10 @@ const songSchema = new Schema({
         type: Number,
         required: true
     },
+    key: String,
+    sharp: Boolean,
+    flat: Boolean,
+    minor: Boolean,
     owner: {
         type: Schema.Types.ObjectId,
         ref: "Group"

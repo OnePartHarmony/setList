@@ -7,8 +7,26 @@
         <legend>Create New Song</legend>
         <label class="form-label">Title:</label>
         <input class="form-control mb-4" type="text" name="name" placeholder="song title" required>
+        <label class="form-label">Key:</label>
+        <input class="form-control mb-4 me-4" style="width: 100px; display: inline-block" list="keyList" name="key" placeholder="E" required>
+          <datalist id="keyList">
+              <option value="A"></option>
+              <option value="B"></option>
+              <option value="C"></option>
+              <option value="D"></option>
+              <option value="E"></option>
+              <option value="F"></option>
+              <option value="G"></option>
+          </datalist>
+        <label class="form-label">Sharp?</label>
+        <input class="form-check-input mb-4" type="checkbox" name="sharp">
+        <label class="form-label ms-4">Flat?</label>
+        <input class="form-check-input mb-4" type="checkbox" name="flat">
+        <label class="form-label ms-4">Minor?</label>
+        <input class="form-check-input mb-4" type="checkbox" name="minor">
+        <br>
         <label class="form-label">Description:</label>
-        <input class="form-control mb-4" type="text" name="description" placeholder="this is a song about things and also stuff">
+        <input class="form-control mb-4" type="text" name="description" placeholder="This is a song about things and also stuff.">
         <label class="form-label">Song Length</label>
         <br>
         <label class="form-label">Minutes:</label>
