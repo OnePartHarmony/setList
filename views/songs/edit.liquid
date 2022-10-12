@@ -1,5 +1,28 @@
 {% layout "layout.liquid" %}
 {% block content %}
 
+  <div class="container-sm">
+    <form action="/{{song.id}}" method="PUT">
+      <fieldset>
+        <legend>Edit {{song.name}}</legend>
+        <label class="form-label">Title:</label>
+        <input class="form-control mb-4" type="text" name="name" value="{{song.name}}" required>
+        <label class="form-label">Description:</label>
+        <input class="form-control mb-4" type="text" name="description" value="{{song.description}}">
+        <label class="form-label">Song Length</label>
+        <br>
+        <label class="form-label">Minutes:</label>
+        <input class="form-control mb-4" style="width: 100px; display: inline-block"  type="number" name="minutes" min="0" max="60" value="{{song.minutes}}" required>
+        <label class="form-label">Seconds:</label>
+        <input class="form-control mb-4" style="width: 100px; display: inline-block"  type="number" name="seconds" min="0" max="59" value="{{song.seconds}}" required>
+        <br>
+        <label class="form-label">Soloist / Lead Vocalist (optional):</label>
+        <input class="form-control mb-4" type="text" name="soloist" value="{{song.soloist}}">
+        <label class="form-label">Keywords (comma separated):</label>
+        <input class="form-control mb-4" type="text" name="keywords" value="{% for word in song.keywords %}{{word}},{% endfor %}">
+      </fieldset>
+      <input class="btn btn-success" type="submit" value="Create Song">
+    </form>
+  </div>
 
 {% endblock %}

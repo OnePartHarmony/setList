@@ -51,12 +51,15 @@ router.get("/:songId", (req,res) => {
 })
 
 //////////GET route to render edit song form////////////
-// router.get("/edit/:songId", (req,res) => {
-//     const songId = req.params.songId
-// const session = req.session
-
-
-// })
+router.get("/edit/:songId", (req,res) => {
+    const songId = req.params.songId
+    const session = req.session
+    Song.findById(songId)
+        .then(song => {
+            res.render("songs/edit", {song, session})
+        })
+        .catch(err => res.redirect(`/error?error=${err}`))
+})
 
 ///////PUT route to update song///////////////
 // router.put("/:songId", (req,res) => {
