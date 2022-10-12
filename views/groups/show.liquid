@@ -1,5 +1,27 @@
 {% layout "layout.liquid" %}
 {% block content %}
-
+    <div style="text-align: center">
+       <h1>{{group.name}}</h1>
+       <img src="{{group.img}}" style="max-height: 400px">
+       <hr>
+       <h5>{{group.members.length}} Members:
+       {% for member in memberArray %}
+            <br> {{member}}
+       {% endfor %}
+       {% if memberArray.length < group.members.length %}
+            <br> not all members have created accounts
+        {% endif %}
+        <br>
+        <a class="btn btn-success mt-4" href="groups/login/{{group.id}}">Work as {{group.name}}</a>
+       </h5>
+       <hr>
+       {% if group.owner == session.userId %}
+       <div class="btn-group-lg">
+            <a class="btn btn-primary" href="/groups/edit/{{group.id}}">Edit Group</a>
+            <a class="btn btn-danger" href="/groups/delete/{{group.id}}">Delete Group</a>
+       </div>
+       {% endif %}
+    </div>
+    
 
 {% endblock %}

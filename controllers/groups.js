@@ -1,6 +1,7 @@
 ////dependencies////
 const express = require("express")
 const Group = require("../models/groups")
+const User = require("../models/users")
 
 /////router////
 const router = express.Router()
@@ -38,18 +39,26 @@ router.post("/", (req,res) => {
         .catch(err => res.redirect(`/error?error=${err}`))
 })
 
-/////GET route to render show group page////////////
+/////GET route to render SHOW group page////////////
 router.get("/:groupId", (req,res) => {    
     const groupId = req.params.groupId
     const session = req.session
     Group.findById(groupId)
         .then(group => {
-            res.render("/groups/show", {group, session})
+            let memberArray = []
+            group.members.forEach(email => {
+                User.findOne({emailAddress: {$eq: email}})
+                    .then(user => {
+                        memberArray.push(user.username)
+                    })
+                    .catch(err => console.log(err))
+            })
+            res.render("groups/show", {group, session, memberArray})
         })
         .catch(err => res.redirect(`/error?error=${err}`))
 })
 
-////////POST route to create group///////////////
+////////POST route to CREATE group///////////////
 router.post("/:groupId", (req,res) => {
     const groupId = req.params.groupId    
     Group.findById(groupId)
@@ -64,9 +73,9 @@ router.post("/:groupId", (req,res) => {
         .catch(err => { res.redirect(`/error?error=${err}`)})
 })
 
-/////////POST route to login as group////////////
+/////////POST route to LOGIN as group////////////
 router.post("/login/:groupId", (req,res) => {
-    const groupId = req.params.groupId  
+    const groupId = req.params.groupId
     Group.findById(groupId)
         .then((group) => {
                 if (group.members.includes(req.session.email)) {
