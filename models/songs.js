@@ -3,6 +3,7 @@ const noteSchema = require("../schema/notes")
 
 const {Schema, model} = mongoose
 
+/////function to capitalize words in title, in case user enters it in lowercase//////
 const capitalizeValue = (string) => {
     const wordsArray = string.split(" ")
     const capitalString = wordsArray.map(word => {
@@ -10,7 +11,6 @@ const capitalizeValue = (string) => {
     }).join(" ")
     return capitalString
 }
-
 
 const songSchema = new Schema({
     name: {

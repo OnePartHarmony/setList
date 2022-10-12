@@ -2,7 +2,7 @@
 {% block content %}
     <h1 style="text-align:center">Your Groups:</h1>
     {% if groups.length > 0 %}
-      <div class="row justify-content-center">
+      <div class="row justify-content-center mb-4">
           {% for group in groups %}
             <div class="card">
               <h4 class="card-header">{{ group.name }}</h4>
@@ -10,7 +10,7 @@
                   {% if group.img != "" %}
                       <img class="group-card-img mb-4" alt="{{group.name}} profile photo" src="{{group.img}}">
                   {% endif %}   
-                  <a class="btn btn-outline-info" href="/groups/{{group.id}}">
+                  <a class="btn btn-outline-danger" href="/groups/{{group.id}}">
                   View
                   {{group.name}}
                 </a>
@@ -20,6 +20,12 @@
       </div>
     {% else %}
       <h4>No groups yet.  Would you like to add one?</h4>
-      <a class="btn btn-warning" href="/groups/new">New Group</a>      
+    {% endif %}
+    {% if session.loggedIn %} 
+      <a class="btn btn-outline-warning" href="/groups/new">New Group</a>
+    {% else %}
+      <h3>Create an account or log in to create groups.</h3>
+      <a href="/user/signup" class="btn btn-primary">Sign Up</a>
+      <a href="/user/login" class="btn btn-success">Log In</a>
     {% endif %}
 {% endblock %}

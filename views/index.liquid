@@ -1,5 +1,12 @@
 {% layout "layout.liquid" %}
 {% block content %}
-
-
+    <h1>Welcome to setList!</h1>
+    <div class="btn-group-lg">
+        {% if session.loggedIn %}
+            <a href="/groups" class="btn btn-outline-danger">Your Groups</a> 
+        {% else %}
+            <a href="/user/signup" class="btn btn-success">Sign Up</a>
+            <a href="/user/login" class="btn btn-primary">Log In</a>
+        {% endif %}
+    </div>
 {% endblock %}
