@@ -7,7 +7,7 @@
             <div class="card">
               <h4 class="card-header">{{ group.name }}</h4>
               <div class="card-body" style="background-color: rgb(50,50,50)">
-                  {% if group.img %}
+                  {% if group.img != "" %}
                       <img class="group-card-img mb-4" alt="{{group.name}} profile photo" src="{{group.img}}">
                   {% endif %}   
                   <a class="btn btn-outline-info" href="/groups/{{group.id}}">

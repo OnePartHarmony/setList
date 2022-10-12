@@ -128,16 +128,30 @@ router.put("/:groupId", (req,res) => {
 })
 
 ////////GET route to render delete group page////////////
-// router.get("/delete/:groupId", (req,res) => {
-//     const groupId = req.params.groupId
-    // const session = req.session
-// })
+router.get("/delete/:groupId", (req,res) => {
+    const groupId = req.params.groupId
+    const session = req.session
+    Group.findById(groupId)
+    .then(group => {
+        res.render("groups/delete", {group, session})
+    })
+    .catch(err => res.redirect(`/error?error=${err}`))
+})
 
 ///////////DELETE route to delete group////////////
-// router.delete("/:groupId", (req,res) => {
-//     const groupId = req.params.groupId
-
-// })
+router.delete("/:groupId", (req,res) => {
+    const groupId = req.params.groupId
+    Group.findById(groupId)
+        .then(group => {
+            if (group.owner == req.session.userId) {
+                group.deleteOne()
+                res.redirect("/groups")
+            } else {
+                res.redirect(`/error?error=only%20group%20creator%20may%20delete%20group`)
+            }
+        })
+        .catch(err => res.redirect(`/error?error=${err}`))
+})
 
 
 
