@@ -2,6 +2,19 @@ body {
     background-color: black;
     color: white;
 }
+
+nav {
+    border-bottom: 1px solid gray;
+}
+
+.navbar-toggler {
+    border: none;
+}
+
+.navbar-toggler:focus {
+    box-shadow: none;
+}
+
 main {
     margin: 20px;
     text-align: center;

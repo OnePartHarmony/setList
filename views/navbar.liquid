@@ -1,7 +1,10 @@
 {% block content %}
 <nav class="navbar navbar-expand-md navbar-dark bg-dark">
     <div class="container-fluid">
-        <a href="/" class="navbar-brand">setList</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navCollapse" aria-controls="navCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <img src="https://i.imgur.com/EsxZ3oK.png" style="height: 40px">
+        </button>
+        <a href="/" class="navbar-brand">setList</a>        
         {% if session.loggedIn %}
             {% if session.groupImg %}
                 <a href="/songs"><img src="{{session.groupImg}}" alt="{{session.groupName}} logo" style="max-height: 50px"></a>
@@ -10,10 +13,7 @@
             {% endif %}
             <a href="/groups" class="nav-link text-light">{{session.username}}</a>            
         {% endif %}
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
+        <div class="collapse navbar-collapse justify-content-end" id="navCollapse">
             {% if session.loggedIn %}
                 <a href="/groups/new" class="nav-link text-light">New Group</a>
                 <a href="/user/logout" class="nav-link text-light">Log Out</a>
