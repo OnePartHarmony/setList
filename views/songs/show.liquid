@@ -2,9 +2,16 @@
 {% block content %}
     <h1>{{song.name}}</h1>
     <h4>{{song.description}}</h4>
-    <h5>Length: {{song.minutes}}:{{song.seconds}}</h5>
-    <h5>Featuring {{song.soloist}}</h5>
-
+    <h5>Length: {{song.minutes}}{{- ":" -}}
+        {% if song.seconds < 10 %}
+            {{- "0" -}}{{- song.seconds -}}
+        {% else %}
+            {{- song.seconds -}}
+        {% endif %}
+    </h5>
+    {% if song.soloist != "" %}
+        <h5>Featuring {{song.soloist}}</h5>
+    {% endif %}
     {% if session.groupId == song.owner %}
         <div class="btn-group">
             <a class="btn btn-primary" href="/songs/edit/{{song.id}}">Edit Song</a>

@@ -9,8 +9,11 @@
                 <div class="card">
                     <h5 class="card-header">{{song.name}}</h5>
                     <div class="card-body">
-                        <h5 class="card-text">Length: {{song.minutes}}:{% if song.seconds < 10 %}0{{song.seconds}}
-                            {% else %}{{song.seconds}}
+                        <h5 class="card-text">Length: {{song.minutes}}{{- ":" -}}
+                            {% if song.seconds < 10 %}
+                                {{- "0" -}}{{- song.seconds -}}
+                            {% else %}
+                                {{- song.seconds -}}
                             {% endif %}
                         </h5>
                         <a class="btn btn-outline-info" href="/songs/{{song.id}}">View {{song.name}}</a>

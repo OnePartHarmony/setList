@@ -83,23 +83,49 @@ router.post("/:groupId", (req,res) => {
                     res.redirect(`/error?error=members%20of%20${group.name}%20only`)
                 }
         })
-        .catch(err => {
-            res.redirect(`/error?error=${err}`)
-        })
+        .catch(err => res.redirect(`/error?error=${err}`))
 })
 
 //////////GET route to render edit group form////////////
-// router.get("/edit/:groupId", (req,res) => {
-//     const groupId = req.params.groupId
-    // const session = req.session
-
-// })
+router.get("/edit/:groupId", (req,res) => {
+    const groupId = req.params.groupId
+    const session = req.session
+    Group.findById(groupId)
+        .then(group => {
+            res.render("groups/edit", {group, session})
+        })
+        .catch(err => res.redirect(`/error?error=${err}`))
+})
 
 ///////PUT route to update group///////////////
-// router.put("/:groupId", (req,res) => {
-//     const groupId = req.params.groupId
+router.put("/:groupId", (req,res) => {
+    const groupId = req.params.groupId
+    /////turn string of member emails into array of separate emails////////
+    let memberString = req.body.members
+    let memberArray = memberString.split(",")
+    console.log("memberArray: ", memberArray)
+    let spacelessArray = memberArray.map(word => { return word.trim() })
+    console.log("spacelessArray: ", spacelessArray)
+    /////////add user email to members in case user forgot themself/////////
+    spacelessArray.push(req.session.email)
+    /////////////remove duplicate emails//////////////
+    let uniqueArray = [...new Set(spacelessArray)]
+    console.log("uniqueArray: ", uniqueArray)
+    req.body.members = uniqueArray
+    Group.findById(groupId)
+        .then(group => {
+            if (group.members.includes(req.session.email)) {
+                return group.updateOne(req.body)
+            } else {
+                res.redirect(`/error?error=group%20may%20only%20be%20edited%20by%20members`)
+            }
+        })
+        .then(()=>{
+            res.redirect(`/groups/${groupId}`)
+        })
+        .catch(err => res.redirect(`/error?error=${err}`))
 
-// })
+})
 
 ////////GET route to render delete group page////////////
 // router.get("/delete/:groupId", (req,res) => {

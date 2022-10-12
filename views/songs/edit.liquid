@@ -19,7 +19,7 @@
         <label class="form-label">Soloist / Lead Vocalist (optional):</label>
         <input class="form-control mb-4" type="text" name="soloist" value="{{song.soloist}}">
         <label class="form-label">Keywords (comma separated):</label>
-        <input class="form-control mb-4" type="text" name="keywords" value="{% for word in song.keywords %}{{word}},{% endfor %}">
+        <input class="form-control mb-4" type="text" name="keywords" value="{{song.keywords | join: ","}">
       </fieldset>
       <input class="btn btn-success" type="submit" value="Update Song">
     </form>
