@@ -4,10 +4,15 @@ body {
 }
 main {
     margin: 20px;
+    text-align: center;
 }
 
 h1 {
     color: white;
+}
+
+fieldset {
+    text-align: left;
 }
 
 .form-control {

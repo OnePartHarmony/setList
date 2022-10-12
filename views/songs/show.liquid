@@ -1,5 +1,17 @@
 {% layout "layout.liquid" %}
 {% block content %}
+    <h1>{{song.name}}</h1>
+    <h4>{{song.description}}</h4>
+    <h5>Length: {{song.minutes}}:{{song.seconds}}</h5>
+    <h5>Featuring {{song.soloist}}</h5>
 
+    {% if session.groupId == song.owner %}
+        <div class="btn-group">
+            <a class="btn btn-primary" href="/songs/edit/{{song.id}}">Edit Song</a>
+            <form action="/songs/{{song.id}}?_method=DELETE" method="POST">
+                <input class="btn btn-danger" type="submit" value="Delete Song">
+            </form>
+        </div>
+    {% endif %}
 
 {% endblock %}

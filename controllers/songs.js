@@ -29,8 +29,7 @@ router.post("/", (req,res) => {
     let keywordString = req.body.keywords
     let keywordArray = keywordString.split(",")
     let spacelessArray = keywordArray.map(word => { return word.trim() })
-    req.body.keywords = spacelessArray
-    
+    req.body.keywords = spacelessArray    
     Song.create(req.body)
         .then(song => {
             console.log("new song: ", song)

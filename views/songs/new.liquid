@@ -7,6 +7,8 @@
         <legend>Create New Song</legend>
         <label class="form-label">Title:</label>
         <input class="form-control mb-4" type="text" name="name" placeholder="song title" required>
+        <label class="form-label">Description:</label>
+        <input class="form-control mb-4" type="text" name="description" placeholder="this is a song about things and also stuff" required>
         <label class="form-label">Song Length</label>
         <br>
         <label class="form-label">Minutes:</label>
@@ -14,9 +16,9 @@
         <label class="form-label">Seconds:</label>
         <input class="form-control mb-4" type="number" name="seconds" min="0" max="59" required>
         <label class="form-label">Soloist / Lead Vocalist (optional):</label>
-        <input class="form-control mb-4" type="text" name="soloist" placeholder="Soloist Name" required>
+        <input class="form-control mb-4" type="text" name="soloist" placeholder="Soloist Name">
         <label class="form-label">Keywords (comma separated):</label>
-        <input class="form-control mb-4" type="text" name="keywords" placeholder="uptune,love-song,bass-feature" required>
+        <input class="form-control mb-4" type="text" name="keywords" placeholder="uptune,love-song,bass-feature">
       </fieldset>
       <input class="btn btn-success" type="submit" value="Create Song">
     </form>
