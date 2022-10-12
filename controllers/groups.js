@@ -24,13 +24,12 @@ router.get("/new", (req,res) => {
     res.render("groups/new", {session})
 })
 
-/////////POST route to create new group///////////////
+/////////POST route to CREATE new group///////////////
 router.post("/", (req,res) => {
     req.body.owner = req.session.userId
     let memberString = req.body.members
     memberString = memberString.replace(" ", "")
-    const memberArray = memberString.split(",")
-    req.body.members = memberArray
+    req.body.members = memberString.split(",")
     Group.create(req.body)
         .then(group => {
             console.log(group)
@@ -58,23 +57,9 @@ router.get("/:groupId", (req,res) => {
         .catch(err => res.redirect(`/error?error=${err}`))
 })
 
-////////POST route to CREATE group///////////////
-router.post("/:groupId", (req,res) => {
-    const groupId = req.params.groupId    
-    Group.findById(groupId)
-        .then(group => {
-            if (group.members.includes(req.session.email)) {
-                req.session.groupId = groupId
-                res.redirect("/groups")
-            } else {
-                res.redirect(`/error?error=not%20a%20member%20of%20${group.name}`)
-            }
-        })
-        .catch(err => { res.redirect(`/error?error=${err}`)})
-})
 
 /////////POST route to LOGIN as group////////////
-router.post("/login/:groupId", (req,res) => {
+router.post("/:groupId", (req,res) => {
     const groupId = req.params.groupId
     Group.findById(groupId)
         .then((group) => {

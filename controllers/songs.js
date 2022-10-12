@@ -24,17 +24,32 @@ router.get("/new", (req,res) => {
 })
 
 ////////POST route to create new song////////////
-// router.post("/new", (req,res) => {
-
-// })
+router.post("/new", (req,res) => {
+    req.body.owner = req.session.groupId
+    let soloistString = req.body.soloists
+    soloistString = soloistString.replace(" ", "")
+    req.body.soloists = soloistString.split(",")
+    let keywordString = req.body.keywords
+    keywordString = keywordString.replace(" ", "")
+    req.body.keywords = keywordString.split(",")
+    Song.create(req.body)
+        .then(song => {
+            res.redirect("/songs")
+        })
+        .catch(err => res.redirect(`/error?error=${err}`))
+})
 
 ////////GET route to show song///////////
-    // router.get("/:songId", (req,res) => {
-    // const songId = req.params.songId
-    // const session = req.session
+router.get("/:songId", (req,res) => {
+    const songId = req.params.songId
+    const session = req.session
+    Song.findById(songId)
+        .then(song => {
+            res.render("songs/show", {song, session})
+        })
+        .catch(err => res.redirect(`/error?error=${err}`))
 
-
-// })
+})
 
 //////////GET route to render edit song form////////////
 // router.get("/edit/:songId", (req,res) => {

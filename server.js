@@ -17,10 +17,8 @@ middleware(app)
 
 //////Home Route//////////
 app.get("/", (req,res) => {
-    const username = req.session.username
-    const loggedIn = req.session.loggedIn
-    const userId = req.session.userId
-    res.render("index.liquid", {username, loggedIn, userId})
+    const session = req.session
+    res.render("index.liquid", {session})
 })
 
 
@@ -33,12 +31,9 @@ app.use("/songs", SongRouter)
 
 //////error route/////////
 app.get("/error", (req,res) => {
-    // const username = req.session.username
-    // const loggedIn = req.session.loggedIn
-    // const userId = req.session.userId
-    const {username, loggedIn, userId} = req.session
+    const session = req.session
     const error = req.query.error || "This page does not exist"
-    res.render("error.liquid", {error, username, loggedIn, userId})
+    res.render("error.liquid", {error, session})
 })
 
 

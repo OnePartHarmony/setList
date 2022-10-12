@@ -3,7 +3,12 @@
     <div class="container-fluid">
         <a href="/" class="navbar-brand">setList</a>
         {% if session.loggedIn %}
-        <a href="/groups" class="nav-link text-light">Hello {{ session.username }} </a>
+            {% if session.groupImg %}
+                <a href="/songs"><img src="{{session.groupImg}}" alt="{{session.groupName}} logo" style="max-height: 50px"></a>
+            {% else if session.groupName %}
+                <a href="/songs" class="nav-link text-light">{{session.groupName}}</a>
+            {% endif %}
+            <a href="/groups" class="nav-link text-light">{{session.username}}</a>            
         {% endif %}
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>

@@ -11,9 +11,11 @@
        {% if memberArray.length < group.members.length %}
             <br> not all members have created accounts
         {% endif %}
+        </h5>
         <br>
-        <a class="btn btn-success mt-4" href="groups/login/{{group.id}}">Work as {{group.name}}</a>
-       </h5>
+        <form action="/groups/{{group.id}}" method="POST">
+            <input class="btn btn-success mt-4" type="submit" value="Work as {{group.name}}">
+        </form>       
        <hr>
        {% if group.owner == session.userId %}
        <div class="btn-group-lg">
