@@ -7,6 +7,7 @@ const middleware = require("./utility/middleware")
 const UserRouter = require("./controllers/users")
 const GroupRouter = require("./controllers/groups")
 const SongRouter = require("./controllers/songs")
+const ListRouter = require("./controllers/lists")
 
 ////express application object////////
 const path = require("path")
@@ -26,6 +27,7 @@ app.get("/", (req,res) => {
 app.use("/user", UserRouter)
 app.use("/groups", GroupRouter)
 app.use("/songs", SongRouter)
+app.use("/lists", ListRouter)
 
 
 

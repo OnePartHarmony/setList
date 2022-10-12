@@ -7,7 +7,7 @@ const router = express.Router()
 
 ////////////ROUTES//////
 
-/////////GET route to view all songs by group////////
+/////////GET route to INDEX songs by group////////
 router.get("/", (req,res) => {
     const session = req.session
     Song.find({owner: session.groupId})
@@ -118,9 +118,5 @@ router.delete("/:songId", (req,res) => {
         .catch(err => res.redirect(`/error?error=${err}`))
 })
 
-
-
-
-
-
+////Export Router///////
 module.exports = router
