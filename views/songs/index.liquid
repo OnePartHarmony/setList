@@ -1,5 +1,24 @@
 {% layout "layout.liquid" %}
 {% block content %}
-
-
+    <h1 style="text-align: center">{{session.groupName}}'s Songs</h1>
+    {% if songs.length > 0 %}
+        <div>
+        <div class="row justify-content-center">
+            {% for song in songs %}
+            <div class="card">
+                <h5 class="card-header">{{song.name}}</h5>
+                <div class="card-body">
+                    <h5 class="card-title">Length: {{song.minutes}}:{{song.seconds}}</h5>
+                    <a class="btn btn-outline-info" href="/songs/{{song.name}}">View {{song.name}}</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        </div>
+    {% else %}
+        <div class="row justify-content-center">
+            <h5 style="text-align: center">{{session.groupName}} doesn't have songs yet, time to add some!</h5>
+            <a class="btn btn-warning" style="width: 110px" href="/songs/new">New Song</a>
+        </div>
+    {% endif %}
 {% endblock %}

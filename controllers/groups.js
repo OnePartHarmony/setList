@@ -27,12 +27,21 @@ router.get("/new", (req,res) => {
 /////////POST route to CREATE new group///////////////
 router.post("/", (req,res) => {
     req.body.owner = req.session.userId
+    /////turn string of member emails into array of separate emails////////
     let memberString = req.body.members
-    memberString = memberString.replace(" ", "")
-    req.body.members = memberString.split(",")
+    let memberArray = memberString.split(",")
+    console.log("memberArray: ", memberArray)
+    let spacelessArray = memberArray.map(word => { return word.trim() })
+    console.log("spacelessArray: ", spacelessArray)
+    /////////add user email to members in case user forgot themself/////////
+    spacelessArray.push(req.session.email)
+    /////////////remove duplicate emails//////////////
+    let uniqueArray = [...new Set(spacelessArray)]
+    console.log("uniqueArray: ", uniqueArray)
+    req.body.members = uniqueArray
     Group.create(req.body)
         .then(group => {
-            console.log(group)
+            console.log("new group: ", group)
             res.redirect("/groups")
         })
         .catch(err => res.redirect(`/error?error=${err}`))

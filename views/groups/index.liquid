@@ -1,20 +1,25 @@
 {% layout "layout.liquid" %}
 {% block content %}
     <h1 style="text-align:center">Your Groups:</h1>
-    <div class="row">
-        {% for group in groups %}
-          <div class="card" style="width: 300px; text-align: center; background-color: rgb(50,50,50)">
-            <h4 class="card-header">{{ group.name }}</h4>
-            <div class="card-body" style="background-color: rgb(50,50,50)">
-                {% if group.img %}
-                    <img class="group-card-img mb-4" alt="{{group.name}} profile photo" src="{{group.img}}">
-                {% endif %}   
-                <a class="btn btn-outline-info" href="/groups/{{group.id}}">
-                View
-                {{group.name}}
-              </a>
+    {% if groups.length > 0 %}
+      <div class="row justify-content-center">
+          {% for group in groups %}
+            <div class="card">
+              <h4 class="card-header">{{ group.name }}</h4>
+              <div class="card-body" style="background-color: rgb(50,50,50)">
+                  {% if group.img %}
+                      <img class="group-card-img mb-4" alt="{{group.name}} profile photo" src="{{group.img}}">
+                  {% endif %}   
+                  <a class="btn btn-outline-info" href="/groups/{{group.id}}">
+                  View
+                  {{group.name}}
+                </a>
+              </div>
             </div>
-          </div>
-        {% endfor %}
-    </div>
+          {% endfor %}
+      </div>
+    {% else %}
+      <h4>No groups yet.  Would you like to add one?</h4>
+      <a class="btn btn-warning" href="/groups/new">New Group</a>      
+    {% endif %}
 {% endblock %}

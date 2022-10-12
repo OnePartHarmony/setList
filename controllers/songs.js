@@ -24,16 +24,16 @@ router.get("/new", (req,res) => {
 })
 
 ////////POST route to create new song////////////
-router.post("/new", (req,res) => {
+router.post("/", (req,res) => {
     req.body.owner = req.session.groupId
-    let soloistString = req.body.soloists
-    soloistString = soloistString.replace(" ", "")
-    req.body.soloists = soloistString.split(",")
     let keywordString = req.body.keywords
-    keywordString = keywordString.replace(" ", "")
-    req.body.keywords = keywordString.split(",")
+    let keywordArray = keywordString.split(",")
+    let spacelessArray = keywordArray.map(word => { return word.trim() })
+    req.body.keywords = spacelessArray
+    
     Song.create(req.body)
         .then(song => {
+            console.log("new song: ", song)
             res.redirect("/songs")
         })
         .catch(err => res.redirect(`/error?error=${err}`))

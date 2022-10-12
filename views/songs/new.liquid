@@ -1,5 +1,25 @@
 {% layout "layout.liquid" %}
 {% block content %}
 
+  <div class="container-sm">
+    <form action="/songs" method="POST">
+      <fieldset>
+        <legend>Create New Song</legend>
+        <label class="form-label">Title:</label>
+        <input class="form-control mb-4" type="text" name="name" placeholder="song title" required>
+        <label class="form-label">Song Length</label>
+        <br>
+        <label class="form-label">Minutes:</label>
+        <input class="form-control mb-4" type="number" name="minutes" min="0" max="60" required>
+        <label class="form-label">Seconds:</label>
+        <input class="form-control mb-4" type="number" name="seconds" min="0" max="59" required>
+        <label class="form-label">Soloist / Lead Vocalist (optional):</label>
+        <input class="form-control mb-4" type="text" name="soloist" placeholder="Soloist Name" required>
+        <label class="form-label">Keywords (comma separated):</label>
+        <input class="form-control mb-4" type="text" name="keywords" placeholder="uptune,love-song,bass-feature" required>
+      </fieldset>
+      <input class="btn btn-success" type="submit" value="Create Song">
+    </form>
+  </div>
 
 {% endblock %}

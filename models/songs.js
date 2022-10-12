@@ -20,8 +20,12 @@ const songSchema = new Schema({
     },
     description: String,
     keywords: [String],
-    soloists: [String],
-    length: {
+    soloists: String,
+    minutes: {
+        type: Number,
+        required: true
+    },
+    seconds: {
         type: Number,
         required: true
     },

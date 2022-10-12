@@ -16,6 +16,9 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             {% if session.loggedIn %}
                 <a href="/user/logout" class="nav-link text-light">Log Out</a>
+                {% if session.groupName %}
+                    <a href="/songs/new" class="nav-link text-light">New Song</a>
+                {% endif %}
             {% else %}
                 <a href="/user/signup" class="nav-link text-light">Sign Up</a>
                 <a href="/user/login" class="nav-link text-light">Log In</a>
