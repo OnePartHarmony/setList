@@ -3,7 +3,8 @@
     <h1>Add Songs to {{list.name}}</h1>
     <form method="POST" action="/lists/songs/{{list.id}}?_method=PUT">
         <fieldset>
-            {% for song in songs %}
+{%- comment -%} Display songs from list first to maintain list order {%- endcomment -%}
+            {% for song in listSongs %}
                 <div class="card mb-4">
                     <h5>{{song.name}}</h5>
                 {%- comment -%} Display length in format 0:00 {%- endcomment -%}
@@ -17,11 +18,23 @@
                     {% if song.soloist != "" %}
                         <h6>Featuring {{song.soloist}}</h6>
                     {% endif %}
-                    <input class="form-check-input mb-4" type="checkbox" name="{{song.id}}"
-                    {% if list.listContents contains song.id %}
-                        checked
+                    <input class="form-check-input mb-4" type="checkbox" name="{{song.id}}" checked>
+                </div>
+            {% endfor %}
+            {% for song in newSongs %}
+                <div class="card mb-4">
+                    <h5>{{song.name}}</h5>
+                    <h6>Length: {{song.minutes}}{{- ":" -}}
+                        {% if song.seconds < 10 %}
+                            {{- "0" -}}{{- song.seconds -}}
+                        {% else %}
+                            {{- song.seconds -}}
+                        {% endif %}
+                    </h6>
+                    {% if song.soloist != "" %}
+                        <h6>Featuring {{song.soloist}}</h6>
                     {% endif %}
-                    >
+                    <input class="form-check-input mb-4" type="checkbox" name="{{song.id}}">
                 </div>
             {% endfor %}
         </fieldset>

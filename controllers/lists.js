@@ -54,15 +54,27 @@ router.get("/:listId", (req,res) => {
         .catch(err => res.redirect(`/error?error=${err}`))
 })
 
-///////////////GET route to add SONGS to list/////////////
+///////////////GET route to view SONGS to add to list list/////////////
 router.get("/songs/:listId", (req,res) => {
     const listId = req.params.listId
     const session = req.session
     List.findById(listId)
         .then(list => {
+            ///////find all songs by list's group, and add new ones to array////////
             Song.find({owner: {$eq: list.owner}})
                 .then(songs => {
-                    res.render("lists/addSongs", {list, session, songs})                    
+                    let newSongs = []
+                    songs.forEach(song => {
+                        if (!list.listContents.includes(song.id)){
+                            newSongs.push(song)
+                        }
+                    })
+                    ///////////find songs already on list//////////
+                    Song.find({_id: {$in: list.listContents}})
+                        .then(listSongs => {
+                            res.render("lists/addSongs", {list, session, listSongs, newSongs}) 
+                        })
+                        .catch(err => res.redirect(`/error?error=${err}`))               
                 })
                 .catch(err => res.redirect(`/error?error=${err}`))
         })
