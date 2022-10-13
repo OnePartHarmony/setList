@@ -58,7 +58,16 @@ router.get("/:listId", (req,res) => {
 
 ///////////PUT route to UPDATE list/////////////
 
-//////////GET route to render DELETE list form////////////
+//////////GET route to render DELETE list view////////////
+router.get("/delete/:listId", (req,res) => {
+    const listId = req.params.listId
+    const session = req.session
+    List.findById(listId)
+        .then(list => {
+            res.render("lists/delete", {list, session})
+        })
+        .catch(err => res.redirect(`/error?error=${err}`))
+})
 
 ///////////////DELETE route to DELETE list////////////
 

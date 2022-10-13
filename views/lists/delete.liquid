@@ -1,5 +1,10 @@
 {% layout "layout.liquid" %}
 {% block content %}
-
-
+    <h1>Are you sure you want to delete {{list.name}}?</h1>
+    <div class="btn-group-lg">
+        <a class="btn btn-primary mb-4" href="/lists/{{list.id}}">No, back to list</a>
+        <form method="POST" action="/lists/{{list.id}}?_method=DELETE">
+            <input class="btn btn-danger" type="submit" value="Delete {{list.name}}">
+        </form> 
+    </div>
 {% endblock %}
