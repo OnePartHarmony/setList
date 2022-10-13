@@ -8,7 +8,7 @@ const listSchema = new Schema({
         type: String,
         required: true,
     },
-    list: [String],
+    listContents: [String],
     description: String,
     owner: {
         type: Schema.Types.ObjectId,

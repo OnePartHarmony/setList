@@ -2,8 +2,15 @@
 {% block content %}
     {% if session.groupName %}
         <h1>{{session.groupName}}'s Set Lists</h1>
+        {% if lists.length > 0 %}
+
+        {% else %}
+            <h3>No set lists yet, how about creating one?</h3>
+        {% endif %}
+        <a class="btn btn-outline-warning" href="/lists/new">New Set List</a>        
     {% else %}
         <h1>Work as one of your groups to view set lists.</h1>
         <a class="btn btn-outline-warning" href="/groups">Your Groups</a>
     {% endif %}
+
 {% endblock %}

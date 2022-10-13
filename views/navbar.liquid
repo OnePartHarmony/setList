@@ -15,11 +15,12 @@
         {% endif %}
         <div class="collapse navbar-collapse justify-content-end" id="navCollapse">
             {% if session.loggedIn %}
-                <a href="/groups/new" class="nav-link text-light">New Group</a>
-                <a href="/user/logout" class="nav-link text-light">Log Out</a>
-                {% if session.groupName %}
+                {% if session.groupId %}
                     <a href="/songs/new" class="nav-link text-light">New Song</a>
+                    <a href="/lists/new" class="nav-link text-light">New List</a>
                 {% endif %}
+                <a href="/groups/new" class="nav-link text-light">New Group</a>
+                <a href="/user/logout" class="nav-link text-light">Log Out</a>                
             {% else %}
                 <a href="/user/signup" class="nav-link text-light">Sign Up</a>
                 <a href="/user/login" class="nav-link text-light">Log In</a>
