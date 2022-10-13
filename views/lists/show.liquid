@@ -1,5 +1,29 @@
 {% layout "layout.liquid" %}
 {% block content %}
 
+    <div style="text-align: center">
+       <h1>{{list.name}}</h1>
+       <hr>
+       <h5>{{list.description}}</h5>
+       <hr>
+       {% if songs.length > 0 %}
+            {% for song in songs %}
+                <div>
+                    <h6>{{song.name}}</h6>
+                    <h8>Length: {{song.length}}</h8>
+                    <h8>Featuring: {{song.soloist}}</h8>
+                </div>
+            {% endfor %}
+       {% else %}
+            <h4>No songs in this list yet.</h4>
+       {% endif %}
+       <hr>
+       {% if list.owner == session.groupId %}
+            <div class="btn-group-lg">
+                    <a class="btn btn-primary" href="/lists/edit/{{list.id}}">Edit List</a>
+                    <a class="btn btn-danger" href="/lists/delete/{{list.id}}">Delete List</a>
+            </div>
+       {% endif %}
+    </div>
 
 {% endblock %}

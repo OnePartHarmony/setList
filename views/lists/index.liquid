@@ -3,7 +3,19 @@
     {% if session.groupName %}
         <h1>{{session.groupName}}'s Set Lists</h1>
         {% if lists.length > 0 %}
-
+            <div class="row justify-content-center mb-4">
+                {% for list in lists %}
+                    <div class="card">
+                        <h4 class="card-header">{{ list.name }}</h4>
+                        <div class="card-body" style="background-color: rgb(50,50,50)">
+                            <a class="btn btn-outline-danger" href="/lists/{{list.id}}">
+                            View
+                            {{list.name}}
+                            </a>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
         {% else %}
             <h3>No set lists yet, how about creating one?</h3>
         {% endif %}

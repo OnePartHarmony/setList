@@ -1,6 +1,7 @@
 ////dependencies////
 const express = require("express")
 const List = require("../models/lists")
+const Song = require("../models/songs")
 
 /////router////
 const router = express.Router()
@@ -24,8 +25,34 @@ router.get("/new", (req,res) => {
 })
 
 ////////POST route to CREATE new list///////////////
+router.post("/", (req, res) => {
+    req.body.owner = req.session.groupId
+    List.create(req.body)
+    .then(list => {
+        console.log("new list: ", list)
+        res.redirect("/lists")
+    })
+    .catch(err => res.redirect(`/error?error=${err}`))
+})
 
 ///////////GET route to SHOW list/////////////////
+router.get("/:listId", (req,res) => {
+    const listId = req.params.listId
+    const session = req.session
+    const songs = []
+    List.findById(listId)
+        .then(list => {
+            list.listContents.forEach(songId => {
+                Song.findById(songId)
+                    .then(song => {
+                        songs.push(song)
+                    })
+                    .catch(err => res.redirect(`/error?error=${err}`)) 
+            })
+            res.render("lists/show", {list, session, songs})                 
+        })
+        .catch(err => res.redirect(`/error?error=${err}`))
+})
 
 ////////////GET route to render EDIT list form///////////
 
