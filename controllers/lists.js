@@ -54,9 +54,54 @@ router.get("/:listId", (req,res) => {
         .catch(err => res.redirect(`/error?error=${err}`))
 })
 
+///////////////GET route to add SONGS to list/////////////
+router.get("/songs/:listId", (req,res) => {
+    const listId = req.params.listId
+    const session = req.session
+    List.findById(listId)
+        .then(list => {
+            Song.find({owner: {$eq: list.owner}})
+                .then(songs => {
+                    res.render("lists/addSongs", {list, session, songs})                    
+                })
+                .catch(err => res.redirect(`/error?error=${err}`))
+        })
+        .catch(err => res.redirect(`/error?error=${err}`))
+})
+
+
+
 ////////////GET route to render EDIT list form///////////
 
 ///////////PUT route to UPDATE list/////////////
+
+
+///////////PUT route to UPDATE list SONGS/////////////
+router.put("/songs/:listId", (req,res) => {
+    let listId = req.params.listId       
+    /////change list contents to array of checked songs ids///////
+    req.body.listContents = Object.keys(req.body)
+    ///////change list length to sum of song lengths///////////
+    Song.find({_id: {$in: Object.keys(req.body)}})
+        .then(songs => {
+            let totalSeconds = 0 
+            songs.forEach(song => {
+                totalSeconds += song.seconds
+                totalSeconds += (song.minutes * 60)
+            })
+            req.body.seconds = totalSeconds % 60
+            req.body.minutes = (totalSeconds - req.body.seconds) / 60
+            List.findById(listId)
+                .then(list => {
+                    return list.updateOne(req.body)
+                })
+                .then(() => {
+                    res.redirect(`/lists/${listId}`)
+                })
+            .catch(err => res.redirect(`/error?error=${err}`))   
+        })
+        .catch(err => res.redirect(`/error?error=${err}`)) 
+})
 
 //////////GET route to render DELETE list view////////////
 router.get("/delete/:listId", (req,res) => {

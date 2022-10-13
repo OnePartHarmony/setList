@@ -3,15 +3,33 @@
 
     <div style="text-align: center">
        <h1>{{list.name}}</h1>
+       {% if list.seconds != "" %}
+            <h2>Length: {{list.minutes}}{{- ":" -}}
+            {% if list.seconds < 10 %}
+                {{- "0" -}}{{- list.seconds -}}
+            {% else %}
+                {{- list.seconds -}}
+            {% endif %}
+            </h2>
+       {% endif %}
        <hr>
        <h5>{{list.description}}</h5>
        <hr>
        {% if songs.length > 0 %}
             {% for song in songs %}
-                <div>
-                    <h6>{{song.name}}</h6>
-                    <h8>Length: {{song.length}}</h8>
-                    <h8>Featuring: {{song.soloist}}</h8>
+                <div class="card mb-4">
+                    <h5>{{song.name}}</h5>
+                {%- comment -%} Display length in format 0:00 {%- endcomment -%}
+                    <h6>Length: {{song.minutes}}{{- ":" -}}
+                        {% if song.seconds < 10 %}
+                            {{- "0" -}}{{- song.seconds -}}
+                        {% else %}
+                            {{- song.seconds -}}
+                        {% endif %}
+                    </h6>
+                    {% if song.soloist != "" %}
+                        <h6>Featuring {{song.soloist}}</h6>
+                    {% endif %}
                 </div>
             {% endfor %}
        {% else %}
@@ -20,6 +38,7 @@
        <hr>
        {% if list.owner == session.groupId %}
             <div class="btn-group-lg">
+                    <a class="btn btn-success" href="/lists/songs/{{list.id}}">Add/Remove Songs</a>                
                     <a class="btn btn-primary" href="/lists/edit/{{list.id}}">Edit List</a>
                     <a class="btn btn-danger" href="/lists/delete/{{list.id}}">Delete List</a>
             </div>

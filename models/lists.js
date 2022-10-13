@@ -10,6 +10,8 @@ const listSchema = new Schema({
     },
     listContents: [String],
     description: String,
+    seconds: Number,
+    minutes: Number,
     owner: {
         type: Schema.Types.ObjectId,
         ref: "Group"

@@ -1,0 +1,30 @@
+{% layout "layout.liquid" %}
+{% block content %}
+    <h1>Add Songs to {{list.name}}</h1>
+    <form method="POST" action="/lists/songs/{{list.id}}?_method=PUT">
+        <fieldset>
+            {% for song in songs %}
+                <div class="card mb-4">
+                    <h5>{{song.name}}</h5>
+                {%- comment -%} Display length in format 0:00 {%- endcomment -%}
+                    <h6>Length: {{song.minutes}}{{- ":" -}}
+                        {% if song.seconds < 10 %}
+                            {{- "0" -}}{{- song.seconds -}}
+                        {% else %}
+                            {{- song.seconds -}}
+                        {% endif %}
+                    </h6>
+                    {% if song.soloist != "" %}
+                        <h6>Featuring {{song.soloist}}</h6>
+                    {% endif %}
+                    <input class="form-check-input mb-4" type="checkbox" name="{{song.id}}"
+                    {% if list.listContents contains song.id %}
+                        checked
+                    {% endif %}
+                    >
+                </div>
+            {% endfor %}
+        </fieldset>
+        <input class="btn btn-success" type="submit" value="Add Songs">
+    </form>
+{% endblock %}
