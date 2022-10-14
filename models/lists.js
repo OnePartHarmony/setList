@@ -8,7 +8,10 @@ const listSchema = new Schema({
         type: String,
         required: true,
     },
-    listContents: [String],
+    listContents: [{
+        type: Schema.Types.ObjectId,
+        ref: "Song"
+    }],
     description: String,
     seconds: Number,
     minutes: Number,

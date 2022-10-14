@@ -16,8 +16,8 @@
        <h5>{{list.description}}</h5>
        <hr>
        <ol>
-            {% if songsArray.length > 0 %}
-                    {% for song in songsArray %}
+            {% if list.listContents.length > 0 %}
+                    {% for song in list.listContents %}
                         <li>
                             <div class="card mb-4">
                                 <h5>{{song.name}}</h5>

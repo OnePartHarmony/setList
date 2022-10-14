@@ -4,7 +4,7 @@
     <form method="POST" action="/lists/songs/{{list.id}}?_method=PUT">
         <fieldset>
 {%- comment -%} Display songs from list first to maintain list order {%- endcomment -%}
-            {% for song in listSongs %}
+            {% for song in list.listContents %}
                 <div class="card mb-4">
                     <h5>{{song.name}}</h5>
                 {%- comment -%} Display length in format 0:00 {%- endcomment -%}

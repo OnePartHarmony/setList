@@ -12,7 +12,10 @@ const router = express.Router()
 router.get("/", (req,res) => {
     const session = req.session
     List.find({owner: session.groupId})
+        .populate("listContents")
         .then(lists => {
+            console.log("here are the lists in index: ", lists)
+            console.log("here is the first list item: ", lists[0].listContents[0])
             res.render("lists/index", {lists, session})
         })
         .catch(err => res.render(`/error?error=${err}`))
@@ -38,20 +41,9 @@ router.post("/", (req, res) => {
 router.get("/:listId", (req,res) => {
     const listId = req.params.listId
     const session = req.session
-    let songsArray = []
     List.findById(listId)
-        .then(list => {
-            list.listContents.forEach((songId, index) => {
-                Song.findById(songId)
-                    .then(song => {         
-                        songsArray[index] = song
-                    })
-                    .catch(err => res.redirect(`/error?error=${err}`))
-            })
-            ////How do you make this wait for the forEach to resolve?/////
-            return list
-        })
-        .then(list => res.render("lists/show", {list, session, songsArray}) )
+        .populate("listContents")
+        .then(list => res.render("lists/show", {list, session}) )
         .catch(err => res.redirect(`/error?error=${err}`))
 })
 
@@ -61,22 +53,14 @@ router.get("/songs/:listId", (req,res) => {
     const listId = req.params.listId
     const session = req.session
     let newSongs = []
-    let listSongs = []
     List.findById(listId)
+        .populate("listContents")
         .then(list => {
-            ///////////find songs already on list//////////
-            list.listContents.forEach((songId, index) => {
-                Song.findById(songId)
-                    .then(song => {         
-                        listSongs[index] = song
-                    })
-                    .catch(err => res.redirect(`/error?error=${err}`))
-            })
-            ///////find all songs by list's group, and add new ones to array////////
+            ///////find all songs by list's group, and only add songs not in list to newSongs////////
             Song.find({owner: {$eq: list.owner}})
                 .then(songs => {
                     songs.forEach(song => {
-                        if (!list.listContents.includes(song.id)){
+                        if (!list.listContents.find(listSong => listSong.id == song.id)){
                             newSongs.push(song)
                         }
                     })
@@ -84,8 +68,8 @@ router.get("/songs/:listId", (req,res) => {
                 .catch(err => res.redirect(`/error?error=${err}`))
             return list
         })
-        .then(list => res.render("lists/addSongs", {list, session, newSongs, listSongs}))
-        .catch(err => res.redirect(`/error?error=${err}`))    
+        .then(list => res.render("lists/addSongs", {list, session, newSongs}))
+        .catch(err => res.redirect(`/error?error=${err}`))
 })
 
 ////////////GET route to render EDIT list form///////////
@@ -98,7 +82,6 @@ router.get("/edit/:listId", (req,res) => {
         })
         .catch(err => res.redirect(`/error?error=${err}`))
 })
-
 
 ///////////PUT route to UPDATE list/////////////
 
