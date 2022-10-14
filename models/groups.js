@@ -8,7 +8,10 @@ const groupSchema = new Schema({
         type: String,
         required: true,
     },
-    members: [String],
+    members: [{
+        type: String,
+        required: true
+    }],
     img: String,
     owner: {
         type: Schema.Types.ObjectId,

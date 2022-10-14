@@ -12,13 +12,10 @@ const router = express.Router()
 router.get("/", (req,res) => {
     const session = req.session
     List.find({owner: session.groupId})
-        .populate("listContents")
         .then(lists => {
-            console.log("here are the lists in index: ", lists)
-            console.log("here is the first list item: ", lists[0].listContents[0])
             res.render("lists/index", {lists, session})
         })
-        .catch(err => res.render(`/error?error=${err}`))
+        .catch(err => res.redirect(`/error?error=${err}`))
 })
 
 ////////GET route to render NEW list form//////////

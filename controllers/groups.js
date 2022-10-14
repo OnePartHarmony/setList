@@ -30,14 +30,11 @@ router.post("/", (req,res) => {
     /////turn string of member emails into array of separate emails////////
     let memberString = req.body.members
     let memberArray = memberString.split(",")
-    console.log("memberArray: ", memberArray)
     let spacelessArray = memberArray.map(word => { return word.trim() })
-    console.log("spacelessArray: ", spacelessArray)
     /////////add user email to members in case user forgot themself/////////
     spacelessArray.push(req.session.email)
     /////////////remove duplicate emails//////////////
     let uniqueArray = [...new Set(spacelessArray)]
-    console.log("uniqueArray: ", uniqueArray)
     req.body.members = uniqueArray
     Group.create(req.body)
         .then(group => {
@@ -57,7 +54,9 @@ router.get("/:groupId", (req,res) => {
             group.members.forEach(email => {
                 User.findOne({emailAddress: {$eq: email}})
                     .then(user => {
-                        memberArray.push(user.username)
+                        if (user) {
+                          memberArray.push(user.username)  
+                        }                        
                     })
                     .catch(err => console.log(err))
             })
@@ -102,19 +101,22 @@ router.put("/:groupId", (req,res) => {
     const groupId = req.params.groupId
     /////turn string of member emails into array of separate emails////////
     let memberString = req.body.members
-    let memberArray = memberString.split(",")
-    console.log("memberArray: ", memberArray)
+    let memberArray = memberString.split(",")    
     let spacelessArray = memberArray.map(word => { return word.trim() })
-    console.log("spacelessArray: ", spacelessArray)
     /////////add user email to members in case user forgot themself/////////
-    spacelessArray.push(req.session.email)
+    spacelessArray.push(req.session.email)    
     /////////////remove duplicate emails//////////////
     let uniqueArray = [...new Set(spacelessArray)]
-    console.log("uniqueArray: ", uniqueArray)
     req.body.members = uniqueArray
     Group.findById(groupId)
         .then(group => {
             if (group.members.includes(req.session.email)) {
+            ////update session info if user is working as updated group/////
+                if (req.session.groupId == groupId){
+                    req.session.members = uniqueArray
+                    req.session.groupName = req.body.name
+                    req.session.groupImg = req.body.groupImg
+                }
                 return group.updateOne(req.body)
             } else {
                 res.redirect(`/error?error=group%20may%20only%20be%20edited%20by%20members`)
