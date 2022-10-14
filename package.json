@@ -14,7 +14,8 @@
     "nodemon": "^2.0.20"
   },
   "scripts": {
-    "start": "nodemon server.js"
+    "start": "nodemon server.js",
+    "seed": "node scripts/deleteAndSeed.js"
   },
   "name": "setlist",
   "description": "## Project Links",

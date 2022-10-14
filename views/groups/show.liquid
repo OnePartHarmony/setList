@@ -14,9 +14,14 @@
         {% endif %}
         </h5>
         <br>
-        <form action="/groups/{{group.id}}" method="POST">
-            <input class="btn btn-outline-warning mt-4" type="submit" value="Work as {{group.name}}">
-        </form>       
+        {% if session.groupId == group.id %}
+            <a class="btn btn-primary" href="/songs">View Songs</a>
+            <a class="btn btn-success" href="/lists">View Lists</a>        
+        {% else %}
+            <form action="/groups/{{group.id}}" method="POST">
+                <input class="btn btn-outline-warning mt-4" type="submit" value="Work as {{group.name}}">
+            </form>
+        {% endif %}   
        <hr>
        {% if group.owner == session.userId %}
        <div class="btn-group-lg">

@@ -27,10 +27,10 @@ router.get("/new", (req,res) => {
 router.post("/", (req,res) => {
     req.body.owner = req.session.groupId
     ///change keywords input by user into an array///////
-    let keywordString = req.body.keywords
-    let keywordArray = keywordString.split(",")
-    let spacelessArray = keywordArray.map(word => { return word.trim() })
-    req.body.keywords = spacelessArray
+    // let keywordString = req.body.keywords
+    // let keywordArray = keywordString.split(",")
+    // let spacelessArray = keywordArray.map(word => { return word.trim() })
+    // req.body.keywords = spacelessArray
     ////change inputs from checkboxes into booleans//////
     req.body.sharp = req.body.sharp === "on" ? true : false
     req.body.flat = req.body.flat === "on" ? true : false
@@ -70,10 +70,10 @@ router.get("/edit/:songId", (req,res) => {
 router.put("/:songId", (req,res) => {
     const songId = req.params.songId
     ///change keywords input by user into an array///////
-    let keywordString = req.body.keywords
-    let keywordArray = keywordString.split(",")
-    let spacelessArray = keywordArray.map(word => { return word.trim() })
-    req.body.keywords = spacelessArray
+    // let keywordString = req.body.keywords
+    // let keywordArray = keywordString.split(",")
+    // let spacelessArray = keywordArray.map(word => { return word.trim() })
+    // req.body.keywords = spacelessArray
     ////change inputs from checkboxes into booleans//////
     req.body.sharp = req.body.sharp === "on" ? true : false
     req.body.flat = req.body.flat === "on" ? true : false

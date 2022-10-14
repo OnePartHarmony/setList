@@ -6,8 +6,8 @@
         </button>
         <a href="/" class="navbar-brand">setList</a>        
         {% if session.loggedIn %}
-            {% if session.groupImg %}
-                <a href="/songs"><img src="{{session.groupImg}}" alt="{{session.groupName}} logo" style="max-height: 40px"></a>
+            {% if session.groupImg != "" %}
+                <a href="/songs"><img src="{{session.groupImg}}" alt="{{session.groupName}} logo" style="height: 40px"></a>
             {% else if session.groupName %}
                 <a href="/songs" class="nav-link text-light">{{session.groupName}}</a>
             {% endif %}

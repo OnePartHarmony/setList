@@ -19,7 +19,7 @@ const songSchema = new Schema({
         set: capitalizeValue
     },
     description: String,
-    keywords: [String],
+    // keywords: [String],
     soloist: String,
     minutes: {
         type: Number,
