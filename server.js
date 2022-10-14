@@ -8,6 +8,7 @@ const UserRouter = require("./controllers/users")
 const GroupRouter = require("./controllers/groups")
 const SongRouter = require("./controllers/songs")
 const ListRouter = require("./controllers/lists")
+const NoteRouter = require("./controllers/notes")
 
 ////express application object////////
 const path = require("path")
@@ -28,6 +29,7 @@ app.use("/user", UserRouter)
 app.use("/groups", GroupRouter)
 app.use("/songs", SongRouter)
 app.use("/lists", ListRouter)
+app.use("/notes", NoteRouter)
 
 
 
