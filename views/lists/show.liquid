@@ -15,26 +15,30 @@
        <hr>
        <h5>{{list.description}}</h5>
        <hr>
-       {% if songs.length > 0 %}
-            {% for song in songs %}
-                <div class="card mb-4">
-                    <h5>{{song.name}}</h5>
-                {%- comment -%} Display length in format 0:00 {%- endcomment -%}
-                    <h6>Length: {{song.minutes}}{{- ":" -}}
-                        {% if song.seconds < 10 %}
-                            {{- "0" -}}{{- song.seconds -}}
-                        {% else %}
-                            {{- song.seconds -}}
-                        {% endif %}
-                    </h6>
-                    {% if song.soloist != "" %}
-                        <h6>Featuring {{song.soloist}}</h6>
-                    {% endif %}
-                </div>
-            {% endfor %}
-       {% else %}
-            <h4>No songs in this list yet.</h4>
-       {% endif %}
+       <ol>
+            {% if songsArray.length > 0 %}
+                    {% for song in songsArray %}
+                        <li>
+                            <div class="card mb-4">
+                                <h5>{{song.name}}</h5>
+                            {%- comment -%} Display length in format 0:00 {%- endcomment -%}
+                                <h6>Length: {{song.minutes}}{{- ":" -}}
+                                    {% if song.seconds < 10 %}
+                                        {{- "0" -}}{{- song.seconds -}}
+                                    {% else %}
+                                        {{- song.seconds -}}
+                                    {% endif %}
+                                </h6>
+                                {% if song.soloist != "" %}
+                                    <h6>Featuring {{song.soloist}}</h6>
+                                {% endif %}
+                            </div>
+                        </li>
+                    {% endfor %}
+            {% else %}
+                    <h4>No songs in this list yet.</h4>
+            {% endif %}
+       </ol>
        <hr>
        {% if list.owner == session.groupId %}
             <div class="btn-group-lg">

@@ -28,29 +28,29 @@ router.get("/new", (req,res) => {
 router.post("/", (req, res) => {
     req.body.owner = req.session.groupId
     List.create(req.body)
-    .then(list => {
-        console.log("new list: ", list)
-        res.redirect("/lists")
-    })
-    .catch(err => res.redirect(`/error?error=${err}`))
+        .then(list => {
+            res.redirect("/lists")
+        })
+        .catch(err => res.redirect(`/error?error=${err}`))
 })
 
 ///////////GET route to SHOW list/////////////////
 router.get("/:listId", (req,res) => {
     const listId = req.params.listId
     const session = req.session
-    const songs = []
+    let songsArray = []
     List.findById(listId)
-        .then(list => {
-            list.listContents.forEach(songId => {
+        .then(list => { 
+            list.listContents.forEach((songId, index) => {
                 Song.findById(songId)
-                    .then(song => {
-                        songs.push(song)
+                    .then(song => {         
+                        songsArray[index] = song
                     })
-                    .catch(err => res.redirect(`/error?error=${err}`)) 
+                    .catch(err => res.redirect(`/error?error=${err}`))
             })
-            res.render("lists/show", {list, session, songs})                 
+            return list
         })
+        .then(list => res.render("lists/show", {list, session, songsArray}) )
         .catch(err => res.redirect(`/error?error=${err}`))
 })
 
@@ -58,26 +58,25 @@ router.get("/:listId", (req,res) => {
 router.get("/songs/:listId", (req,res) => {
     const listId = req.params.listId
     const session = req.session
+    let newSongs = []
+    let listSongs = [] 
     List.findById(listId)
         .then(list => {
-            ///////find all songs by list's group, and add new ones to array////////
+            ///////find all songs by list's group////////
             Song.find({owner: {$eq: list.owner}})
                 .then(songs => {
-                    let newSongs = []
                     songs.forEach(song => {
-                        if (!list.listContents.includes(song.id)){
+                        if (list.listContents.includes(song.id)){
+                            listSongs.push(song)
+                        } else {
                             newSongs.push(song)
                         }
-                    })
-                    ///////////find songs already on list//////////
-                    Song.find({_id: {$in: list.listContents}})
-                        .then(listSongs => {
-                            res.render("lists/addSongs", {list, session, listSongs, newSongs}) 
-                        })
-                        .catch(err => res.redirect(`/error?error=${err}`))               
+                    })           
                 })
                 .catch(err => res.redirect(`/error?error=${err}`))
+            return list
         })
+        .then(list => res.render("lists/addSongs", {list, session, listSongs, newSongs}) )
         .catch(err => res.redirect(`/error?error=${err}`))
 })
 
@@ -106,11 +105,11 @@ router.put("/songs/:listId", (req,res) => {
             List.findById(listId)
                 .then(list => {
                     return list.updateOne(req.body)
-                })
-                .then(() => {
-                    res.redirect(`/lists/${listId}`)
-                })
-            .catch(err => res.redirect(`/error?error=${err}`))   
+                })                
+                .catch(err => res.redirect(`/error?error=${err}`))   
+        })
+        .then(() => {
+            res.redirect(`/lists/${listId}`)
         })
         .catch(err => res.redirect(`/error?error=${err}`)) 
 })
