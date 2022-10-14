@@ -34,13 +34,13 @@ router.post("/", (req, res) => {
         .catch(err => res.redirect(`/error?error=${err}`))
 })
 
-///////////GET route to SHOW list/////////////////
+/////////GET route to SHOW list/////////////////
 router.get("/:listId", (req,res) => {
     const listId = req.params.listId
     const session = req.session
     let songsArray = []
     List.findById(listId)
-        .then(list => { 
+        .then(list => {
             list.listContents.forEach((songId, index) => {
                 Song.findById(songId)
                     .then(song => {         
@@ -48,43 +48,61 @@ router.get("/:listId", (req,res) => {
                     })
                     .catch(err => res.redirect(`/error?error=${err}`))
             })
+            ////How do you make this wait for the forEach to resolve?/////
             return list
         })
         .then(list => res.render("lists/show", {list, session, songsArray}) )
         .catch(err => res.redirect(`/error?error=${err}`))
 })
 
+
 ///////////////GET route to view SONGS to add to list list/////////////
 router.get("/songs/:listId", (req,res) => {
     const listId = req.params.listId
     const session = req.session
     let newSongs = []
-    let listSongs = [] 
+    let listSongs = []
     List.findById(listId)
         .then(list => {
-            ///////find all songs by list's group////////
+            ///////////find songs already on list//////////
+            list.listContents.forEach((songId, index) => {
+                Song.findById(songId)
+                    .then(song => {         
+                        listSongs[index] = song
+                    })
+                    .catch(err => res.redirect(`/error?error=${err}`))
+            })
+            ///////find all songs by list's group, and add new ones to array////////
             Song.find({owner: {$eq: list.owner}})
                 .then(songs => {
                     songs.forEach(song => {
-                        if (list.listContents.includes(song.id)){
-                            listSongs.push(song)
-                        } else {
+                        if (!list.listContents.includes(song.id)){
                             newSongs.push(song)
                         }
-                    })           
+                    })
                 })
                 .catch(err => res.redirect(`/error?error=${err}`))
             return list
         })
-        .then(list => res.render("lists/addSongs", {list, session, listSongs, newSongs}) )
+        .then(list => res.render("lists/addSongs", {list, session, newSongs, listSongs}))
+        .catch(err => res.redirect(`/error?error=${err}`))    
+})
+
+////////////GET route to render EDIT list form///////////
+router.get("/edit/:listId", (req,res) => {
+    const listId = req.params.listId
+    const session = req.session
+    List.findById(listId)
+        .then(list => {
+            res.render("lists/edit", {list, session})
+        })
         .catch(err => res.redirect(`/error?error=${err}`))
 })
 
 
-
-////////////GET route to render EDIT list form///////////
-
 ///////////PUT route to UPDATE list/////////////
+
+
 
 
 ///////////PUT route to UPDATE list SONGS/////////////
@@ -126,7 +144,19 @@ router.get("/delete/:listId", (req,res) => {
 })
 
 ///////////////DELETE route to DELETE list////////////
-
+router.delete("/:listId", (req,res) => {
+    const listId = req.params.listId
+    List.findById(listId)
+        .then(list => {
+            if (list.owner == req.session.groupId) {
+                list.deleteOne()
+                res.redirect("/lists")
+            } else {
+                res.redirect(`/error?error=only%20group%20members%20may%20delete%20lists`)
+            }
+        })
+        .catch(err => res.redirect(`/error?error=${err}`))
+})
 
 
 ////Export Router///////
