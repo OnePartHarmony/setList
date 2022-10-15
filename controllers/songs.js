@@ -48,6 +48,7 @@ router.get("/:songId", (req,res) => {
     const songId = req.params.songId
     const session = req.session
     Song.findById(songId)
+        .populate("notes.author", "username")
         .then(song => {
             res.render("songs/show", {song, session})
         })

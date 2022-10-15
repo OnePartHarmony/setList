@@ -12,12 +12,13 @@ const router = express.Router()
 router.post("/:songOrListId", (req,res) => {
     const id = req.params.songOrListId
     req.body.author = req.session.userId
+    req.body.date = new Date().toLocaleString()
     Song.findById(id)
         .then(song => {
             if (song == null) {
                 List.findById(id)
                     .then(list => {
-                        if (list.owner == req.session.groupID) {
+                        if (list.owner == req.session.groupId) {
                             list.notes.push(req.body)
                             list.save()
                             res.redirect(`/lists/${list.id}`)                            
@@ -27,7 +28,7 @@ router.post("/:songOrListId", (req,res) => {
                     })
                     .catch(err => res.redirect(`/error?error=${err}`))
             } else {
-                if (song.owner == req.session.groupID) {
+                if (song.owner == req.session.groupId) {
                     song.notes.push(req.body)
                     song.save()
                     res.redirect(`/songs/${song.id}`)
@@ -53,7 +54,7 @@ router.delete("/delete/:songOrListId/:noteId", (req,res) => {
                         if (listNote.author == req.session.userId) {
                             listNote.remove()
                             list.save()
-                            res.redirect(`/lists/${list.name}`)
+                            res.redirect(`/lists/${list.id}`)
                         } else {
                             res.redirect(`/error?error=note%20may%20only%20be%20deleted%20by%20its%20creator`)
                         }
@@ -64,7 +65,7 @@ router.delete("/delete/:songOrListId/:noteId", (req,res) => {
                 if (songNote.author == req.session.userId) {
                     songNote.remove()
                     song.save()
-                    res.redirect(`/songs/${song.name}`)
+                    res.redirect(`/songs/${song.id}`)
                 } else {
                     res.redirect(`/error?error=note%20may%20only%20be%20deleted%20by%20its%20creator`)
                 }

@@ -39,6 +39,7 @@ router.get("/:listId", (req,res) => {
     const listId = req.params.listId
     const session = req.session
     List.findById(listId)
+        .populate("notes.author", "username")
         .populate("listContents")
         .then(list => res.render("lists/show", {list, session}) )
         .catch(err => res.redirect(`/error?error=${err}`))

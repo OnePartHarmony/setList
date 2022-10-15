@@ -115,7 +115,7 @@ router.put("/:groupId", (req,res) => {
                 if (req.session.groupId == groupId){
                     req.session.members = uniqueArray
                     req.session.groupName = req.body.name
-                    req.session.groupImg = req.body.groupImg
+                    req.session.groupImg = req.body.img
                 }
                 return group.updateOne(req.body)
             } else {

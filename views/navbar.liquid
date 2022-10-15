@@ -11,7 +11,7 @@
             {% else if session.groupId %}
                 <a href="/groups/{{session.groupId}}" class="nav-link text-light">{{session.groupName}}</a>
             {% endif %}
-            <a href="/groups" class="nav-link text-light">{{session.username}}</a>            
+            <a href="/groups" class="nav-link text-light">{{session.username}}'s groups</a>            
         {% endif %}
         <div class="collapse navbar-collapse justify-content-end" id="navCollapse">
             {% if session.loggedIn %}

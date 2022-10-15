@@ -4,13 +4,13 @@
     <div style="text-align: center">
        <h1>{{list.name}}</h1>
        {% if list.seconds != "" %}
-            <h2>Length: {{list.minutes}}{{- ":" -}}
+            <h4>Length: {{list.minutes}}{{- ":" -}}
             {% if list.seconds < 10 %}
                 {{- "0" -}}{{- list.seconds -}}
             {% else %}
                 {{- list.seconds -}}
             {% endif %}
-            </h2>
+            </h4>
        {% endif %}
        <hr>
        <h5>{{list.description}}</h5>
@@ -41,10 +41,36 @@
        </ol>
        <hr>
        {% if list.owner == session.groupId %}
-            <div class="btn-group-lg">
-                    <a class="btn btn-success" href="/lists/songs/{{list.id}}">Add/Remove Songs</a>                
-                    <a class="btn btn-primary" href="/lists/edit/{{list.id}}">Edit List</a>
-                    <a class="btn btn-danger" href="/lists/delete/{{list.id}}">Delete List</a>
+            <a class="btn btn-success" href="/lists/songs/{{list.id}}">Add/Remove Songs</a>
+            <hr>
+            <h4>Notes</h4>
+            <hr>
+            <div class="col-md-6">
+                <form action="/notes/{{list.id}}" method="POST">
+                <fieldset>
+                    <legend>Write Note:</legend>
+                    <label class="form-label">note:</label>
+                    <input class="form-control mb-3" type="text" placeholder="note about this set list..." name="message" required>
+                    <input class="btn btn-success" type="submit" value="Add Note">
+                </fieldset>
+                </form>
+            </div>
+            <hr>
+            {% if list.notes.length > 0 %}
+                <div class="container-sm justify-content-center">
+                    <div class="col-md-8 col-lg-6">
+                    {% for note in list.notes %}
+                        {% render "note.liquid", note: note, session: session, songOrList: list %}
+                    {% endfor %}
+                    </div>
+                </div>
+            {% else %}
+                <small>No notes yet...</small>
+            {% endif %}
+            <hr>
+            <div class="btn-group-lg">        
+                <a class="btn btn-primary" href="/lists/edit/{{list.id}}">Edit List</a>
+                <a class="btn btn-danger" href="/lists/delete/{{list.id}}">Delete List</a>
             </div>
        {% endif %}
     </div>

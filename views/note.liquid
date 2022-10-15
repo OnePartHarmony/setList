@@ -1,0 +1,16 @@
+{% block content %}
+    <div class="card mb-4 shadow">
+        <div class="card-body">
+            <h5>{{ note.message }}</h5>
+            <div class="d-flex justify-content-between">
+                <small>{{ note.author.username }}</small>
+                <small>{{note.date}}</small>
+                {% if note.author == session.userId %}
+                    <form action="/notes/delete/{{songOrList.id}}/{{note.id}}?_method=DELETE" method="POST">
+                        <input class="btn btn-danger" type="submit" value="X">
+                    </form>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

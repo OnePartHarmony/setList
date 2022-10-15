@@ -3,7 +3,7 @@ const mongoose = require("../utility/connection")
 const {Schema} = mongoose
 
 const noteSchema = new Schema({
-    note: {
+    message: {
         type: String,
         required: true
     },
@@ -11,9 +11,8 @@ const noteSchema = new Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
         required: true
-    }
-}, {
-    timestamps: true
+    },
+    date: String
 })
 
 
