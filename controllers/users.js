@@ -46,6 +46,7 @@ router.post("/login", async (req,res) => {
                     req.session.loggedIn = true
                     req.session.userId = user.id
                     req.session.email = user.emailAddress
+                    req.session.userImg = user.img
                     console.log("this is req.session: ", req.session)
 
                     res.redirect("/groups")
