@@ -14,24 +14,27 @@ function toggleDisplay(id) {
         </button>
         <a href="/" class="navbar-brand">setList</a>
         {% if session.loggedIn %}
-            {% if session.groupImg and session.groupImg != "" %}
-                <a href="/groups/{{session.groupId}}"><img src="{{session.groupImg}}" alt="{{session.groupName}} logo" style="height: 40px; border-radius: 50%"></a>
-            {% else if session.groupId %}
-                <a href="/groups/{{session.groupId}}" class="nav-link text-light">{{session.groupName}}</a>
-            {% endif %}
-
-            <img id="user-image" onclick="toggleDisplay('user-menu')" alt="user image" class="ms-4" style="height: 40px; border-radius: 50%" src="
-            {% if session.userImg %}
+            <img id="user-image" onclick="toggleDisplay('user-menu')" alt="user image" class="me-4" style="height: 40px; border-radius: 50%" src="
+            {% if session.userImg and session.userImg != "" %}
                 {{session.userImg}}
             {% else %}
                 https://i.imgur.com/OUa7lxr.png
             {% endif %}
             ">
             <div id="user-menu" style="display: none">
+                <a href="/user/edit/{{session.userId}}" class="nav-link text-light">Edit Profile</a> 
                 <a href="/groups" class="nav-link text-light">Your Groups</a>                 
                 <a href="/groups/new" class="nav-link text-light">New Group</a>
                 <a href="/user/logout" class="nav-link text-light">Log Out</a> 
             </div>
+
+            {% if session.groupImg and session.groupImg != "" %}
+                <a href="/groups/{{session.groupId}}"><img src="{{session.groupImg}}" alt="{{session.groupName}} logo" style="height: 40px; border-radius: 50%"></a>
+            {% else if session.groupId %}
+                <a href="/groups/{{session.groupId}}" class="nav-link text-light">{{session.groupName}}</a>
+            {% endif %}
+
+
         {% endif %}
         <div class="collapse navbar-collapse justify-content-end" id="navCollapse">
             {% if session.loggedIn %}

@@ -1,0 +1,19 @@
+{% layout "layout.liquid" %}
+{% block content %}
+
+  <div class="container-sm">
+    <form method="POST" action="/user/{{user.id}}?_method=PUT">
+      <fieldset>
+        <legend>Edit Profile</legend>
+        <label class="form-label">Username:</label>
+        <input class="form-control" type="text" name="username" value="{{user.username}}" required>
+        <label class="form-label">Email Address:</label>
+        <input class="form-control" type="email" name="emailAddress" value="{{user.emailAddress}}" required>
+        <label class="form-label">Profile Photo Link:</label>
+        <input class="form-control" type="url" name="img" value="{{user.img}}" placeholder="https://i.imgur.com/mySelf.jpg">
+      </fieldset>
+      <input class="btn btn-success" type="submit" value="Update Account">
+    </form>
+  </div>
+
+{% endblock %}

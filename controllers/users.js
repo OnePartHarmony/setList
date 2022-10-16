@@ -2,6 +2,7 @@
 const express = require("express")
 const User = require("../models/users")
 const bcrypt = require("bcryptjs")
+const { Session } = require("express-session")
 
 const router = express.Router()
 
@@ -47,8 +48,7 @@ router.post("/login", async (req,res) => {
                     req.session.userId = user.id
                     req.session.email = user.emailAddress
                     req.session.userImg = user.img
-                    console.log("this is req.session: ", req.session)
-
+                    // console.log("this is req.session: ", req.session)
                     res.redirect("/groups")
                 } else {
                     res.redirect(`/error?error=password%20incorrect`)
@@ -78,5 +78,34 @@ router.delete("/logout", (req, res) => {
     })
 })
 
+////////GET route to render EDIT page/////////
+router.get("/edit/:userId", (req,res) => {
+    const userId = req.params.userId
+    const session = req.session
+    User.findById(userId)
+        .then(user => {
+            res.render("users/edit", {user, session})
+        })
+        .catch(err => res.redirect(`/error?error=${err}`))
+})
+
+////////PUT route to EDIT user (not including password)/////////
+router.put("/:userId", (req,res) => {
+    const userId = req.params.userId
+    User.findById(userId)
+        .then(user => {
+            if (userId == req.session.userId) {
+                req.session.username = req.body.username
+                req.session.email = req.body.emailAddress
+                req.session.userImg = req.body.img
+                req.session.save()
+                return user.updateOne(req.body)
+            } else {
+                res.redirect("/error?error=log%20in%20as%20user%20to%20update")
+            }
+        })
+        .then(res.redirect("/groups"))
+        .catch(err => res.redirect(`/error?error=${err}`))
+})
 
 module.exports = router
