@@ -105,3 +105,30 @@ fieldset {
         display: none;
     }
 }
+
+.btn-danger {
+    background: linear-gradient( #e06b65,  #cb413b); 
+    border: none;
+}
+
+.btn-warning {
+    background: linear-gradient( #f2ac83,  #d5804e); 
+    border: none;
+}
+
+.btn-warning:hover {
+    background-color: #da8d5f;   
+}
+
+.form-control-plaintext {
+    background-color: rgb(50,50,50);
+    border: 5px solid rgb(50,50,50);
+    border-radius: 10px;
+    color: white;
+}
+
+.form-control-plaintext:hover {
+    background-color: rgb(75,75,75);
+    border: 5px solid rgb(75,75,75);   
+}
+
