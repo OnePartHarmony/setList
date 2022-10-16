@@ -17,12 +17,6 @@ const app = require("liquid-express-views")(express(), {root: [path.resolve(__di
 //////Middleware/////
 middleware(app)
 
-//////Home Route//////////
-app.get("/", (req,res) => {
-    const session = req.session
-    res.render("index.liquid", {session})
-})
-
 
 ////////Register Routes/////////
 app.use("/user", UserRouter)
@@ -31,6 +25,16 @@ app.use("/songs", SongRouter)
 app.use("/lists", ListRouter)
 app.use("/notes", NoteRouter)
 
+
+//////Home Route//////////
+app.get("/", (req,res) => {
+    const session = req.session
+    if (req.session.loggedIn){
+        res.redirect("/groups")
+    } else {
+        res.render("index.liquid", {session})        
+    }
+})
 
 
 //////error route/////////

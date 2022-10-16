@@ -1,7 +1,7 @@
 {% layout "layout.liquid" %}
 {% block content %}
     {% if session.groupName %}
-        <h1 style="text-align: center">{{session.groupName}}'s Songs</h1>
+        <h1 style="text-align: center">Songs by {{session.groupName}}</h1>
         {% if songs.length > 0 %}
             <div>
             <div class="row justify-content-center">

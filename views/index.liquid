@@ -1,12 +1,29 @@
 {% layout "layout.liquid" %}
 {% block content %}
-    <h1>Welcome to setList!</h1>
-    <div class="btn-group-lg">
-        {% if session.loggedIn %}
-            <a href="/groups" class="btn btn-outline-danger">Your Groups</a> 
-        {% else %}
-            <a href="/user/signup" class="btn btn-success">Sign Up</a>
-            <a href="/user/login" class="btn btn-primary">Log In</a>
-        {% endif %}
+    <div id="index">
+        <div id="intro">
+            <h1>Welcome to setList!</h1>
+        </div>
+        <div id="index-login">
+            <div>
+                <form action="/user/login" method="POST">
+                <fieldset style="width: 300px; font-size: 1.2em">
+                    <legend style="font-size: 1.4em; margin-bottom: 15px">Log In</legend>
+                    <label class="form-label">Username:
+                    </label>
+                    <input class="form-control" type="text" name="username" placeholder="username" required>
+                    <label class="form-label">Password:
+                    </label>
+                    <input class="form-control" type="password" name="password" placeholder="password" required>
+                </fieldset>
+                <input class="btn btn-success mt-1" style="width: 300px" type="submit" value="Log In">
+                </form>
+            </div>
+            <div>
+                <h6 style="display: inline" >Don't have an account?</h6>
+                <a href="/user/signup" class="btn btn-primary ms-2">Sign Up</a>
+            </div> 
+        </div>
     </div>
+
 {% endblock %}

@@ -7,31 +7,26 @@ function toggleDisplay(id) {
 }
 </script>
 
-<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+<nav class="navbar fixed-left navbar-expand-md navbar-dark">
     <div class="container-fluid">
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navCollapse" aria-controls="navCollapse" aria-expanded="false" aria-label="Toggle navigation">
             <img src="https://i.imgur.com/cg6rOb0.png" style="height: 30px">
         </button>
         <a href="/" class="navbar-brand">setList</a>
         {% if session.loggedIn %}
-            <img id="user-image" onclick="toggleDisplay('user-menu')" alt="user image" class="me-4" style="height: 40px; border-radius: 50%" src="
+            <img id="user-image" onclick="toggleDisplay('user-menu')" alt="user image" title="user menu" class="me-4" style="height: 40px; border-radius: 50%" src="
             {% if session.userImg and session.userImg != "" %}
                 {{session.userImg}}
             {% else %}
                 https://i.imgur.com/OUa7lxr.png
             {% endif %}
             ">
-            <div id="user-menu" style="display: none">
-                <a href="/user/edit/{{session.userId}}" class="nav-link text-light">Edit Profile</a> 
-                <a href="/groups" class="nav-link text-light">Your Groups</a>                 
-                <a href="/groups/new" class="nav-link text-light">New Group</a>
-                <a href="/user/logout" class="nav-link text-light">Log Out</a> 
-            </div>
+
 
             {% if session.groupImg and session.groupImg != "" %}
-                <a href="/groups/{{session.groupId}}"><img src="{{session.groupImg}}" alt="{{session.groupName}} logo" style="height: 40px; border-radius: 50%"></a>
+                <a href="/groups/{{session.groupId}}"><img src="{{session.groupImg}}" alt="{{session.groupName}} logo" title="group menu" style="height: 40px; border-radius: 50%"></a>
             {% else if session.groupId %}
-                <a href="/groups/{{session.groupId}}" class="nav-link text-light">{{session.groupName}}</a>
+                <a href="/groups/{{session.groupId}}" class="nav-link text-light" title="group menu">{{session.groupName}}</a>
             {% endif %}
 
 
@@ -51,4 +46,10 @@ function toggleDisplay(id) {
         </div>
     </div>
 </nav>
+<div id="user-menu" style="display: none">
+    <a href="/user/edit/{{session.userId}}" class="nav-link text-light mt-3">Edit Profile</a> 
+    <a href="/groups" class="nav-link text-light mt-3">Your Groups</a>                 
+    <a href="/groups/new" class="nav-link text-light mt-3">New Group</a>
+    <a href="/user/logout" class="nav-link text-light mt-3">Log Out</a> 
+</div>
 {% endblock %}
