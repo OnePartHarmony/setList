@@ -2,12 +2,16 @@ body {
     background-color: black;
     color: white;
     font-family: 'Quicksand', sans-serif;
+    position: relative;
 }
 
 nav {
+    position: fixed;
+    top: 0;
     border-bottom: 1.5px solid rgb(75,75,75);
     font-size: 1.1em;
-    background-color: rgb(74, 18, 18);
+    background-color: rgb(20,20,20);
+
 }
 
 .navbar-brand {
@@ -30,14 +34,51 @@ nav {
 #user-menu {
     flex-direction: column;
     position: absolute;
+    right: 0;
     z-index: 1;
-    border: 1px solid rgb(75,75,75);
-    background-color: black;
+    background-color: rgb(40,40,40);
+    border-radius: 5%;
+    padding: 5px;
 }
 
-main {
-    margin: 20px;
+#sidebar-section {
+    width: 150px;
+}
+
+#sidebar{
+    position: fixed;
+    top: 59px;
+    width: 200px;
+    height: 600px;
+    background-color: black;
+    border: 1px solid green;
+    display: flex;
+}
+
+#main-section {
+    margin-top: 100px;     
+    width: calc(97vw - 200px);
+    min-height: calc(100vh - 100px);
+    position: relative;
+    left: 200px;
     text-align: center;
+    padding: 1rem;
+}
+
+#main-content {
+    padding-bottom: 4rem;    
+}
+
+#footer {
+    height: 2rem;
+    width: 100%;
+    color: rgb(50,50,50);
+    position: absolute;
+    bottom: 0;
+}
+
+#footer a {
+    color: rgb(50,50,50);
 }
 
 h1 {
@@ -95,25 +136,33 @@ fieldset {
     max-width: 400px;
     height: 500px;
     padding: 30px 0 30px 0;
-    background-color: rgb(50,50,50);
+    /* background-color: rgb(74,18,18); */
+    background-color: rgb(30,30,30);
     justify-content: space-between;
     border-radius: 10%;
 }
 
-@media (max-width: 600px) {
-    #intro {
-        display: none;
-    }
+
+
+.btn {
+    box-shadow: 1px 1px 4px black;
+    border: none;
+}
+
+.btn-secondary {
+    background: linear-gradient( rgb(120,120,120),  rgb(100,100,100));
+}
+
+.btn-secondary:hover {
+    background: linear-gradient( rgb(100,100,100),  rgb(80,80,80));
 }
 
 .btn-danger {
-    background: linear-gradient( #e06b65,  #cb413b); 
-    border: none;
+    background: linear-gradient( #e06b65,  #cb413b);
 }
 
 .btn-warning {
-    background: linear-gradient( #f2ac83,  #d5804e); 
-    border: none;
+    background: linear-gradient( #f2ac83,  #d5804e);
 }
 
 .btn-warning:hover {
@@ -122,13 +171,21 @@ fieldset {
 
 .form-control-plaintext {
     background-color: rgb(50,50,50);
-    border: 5px solid rgb(50,50,50);
+    box-shadow: inset 1px 2px 4px rgb(40,40,40);
+    padding: 10px;
     border-radius: 10px;
     color: white;
 }
 
 .form-control-plaintext:hover {
     background-color: rgb(75,75,75);
-    border: 5px solid rgb(75,75,75);   
+    /* border: 5px solid rgb(75,75,75);    */
 }
 
+
+
+@media (max-width: 600px) {
+    #intro {
+        display: none;
+    }
+}

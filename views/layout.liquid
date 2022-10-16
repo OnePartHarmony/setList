@@ -16,13 +16,21 @@
 </head>
 <body>
     <header>
-        {% render './navbar.liquid', session: session %}
+        {% render "./navbar.liquid", session: session %}
     </header>
-    <main style="margin-top: 50px">
-        {% block content %} 
-        {% endblock %}
+    <main>
+        <section id="sidebar-section">
+            {% render "./sidebar.liquid", session: session %}            
+        </section>
+        <section id="main-section">
+            <div id="main-content">
+                {% block content %} 
+                {% endblock %}
+            </div>
+            <div id="footer"> Icons made by <a href="https://www.freepik.com" title="Freepik"> Freepik </a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>
+            </div>                
+        </section>
     </main>
-    <footer></footer>
 </body>
 
 </html>

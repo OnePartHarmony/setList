@@ -8,7 +8,7 @@
                     <div class="card">
                         <h4 class="card-header">{{ list.name }}</h4>
                         <div class="card-body" style="background-color: rgb(50,50,50)">
-                            <a class="btn btn-outline-danger" href="/lists/{{list.id}}">
+                            <a class="btn btn-danger" href="/lists/{{list.id}}">
                             View
                             {{list.name}}
                             </a>
@@ -19,10 +19,10 @@
         {% else %}
             <h3>No set lists yet, how about creating one?</h3>
         {% endif %}
-        <a class="btn btn-outline-warning" href="/lists/new">New Set List</a>        
+        <a class="btn btn-warning" href="/lists/new">New Set List</a>        
     {% else %}
         <h1>Work as one of your groups to view set lists.</h1>
-        <a class="btn btn-outline-warning" href="/groups">Your Groups</a>
+        <a class="btn btn-warning" href="/groups">Your Groups</a>
     {% endif %}
 
 {% endblock %}
