@@ -10,7 +10,7 @@
                   {% if group.img != "" %}
                       <img class="group-card-img mb-4" alt="{{group.name}} profile photo" src="{{group.img}}">
                   {% endif %}   
-                  <a class="btn btn-outline-danger" href="/groups/{{group.id}}">
+                  <a class="btn btn-danger" href="/groups/{{group.id}}">
                   View
                   {{group.name}}
                 </a>
@@ -22,10 +22,10 @@
       <h4>No groups yet.  Would you like to add one?</h4>
     {% endif %}
     {% if session.loggedIn %} 
-      <a class="btn btn-outline-warning" href="/groups/new">New Group</a>
+      <a class="btn btn-warning" href="/groups/new">New Group</a>
     {% else %}
       <h3>Create an account or log in to create groups.</h3>
-      <a href="/user/signup" class="btn btn-primary">Sign Up</a>
-      <a href="/user/login" class="btn btn-success">Log In</a>
+      <a href="/user/signup" class="btn btn-danger">Sign Up</a>
+      <a href="/user/login" class="btn btn-warning">Log In</a>
     {% endif %}
 {% endblock %}

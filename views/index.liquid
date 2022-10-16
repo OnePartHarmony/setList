@@ -1,5 +1,65 @@
 {% layout "layout.liquid" %}
 {% block content %}
+{%- comment -%} Override styling for normal pages {%- endcomment -%}
+    <style>
+        body {
+            background-image: url(https://i.imgur.com/E2Gg3wn.jpg);
+            background-size: cover;
+        }
+        #sidebar {
+            display: none;
+        }
+        #footer {
+            display: none;
+        }
+        #main-section {
+            width: 98vw;
+            left: auto;
+        }
+        h1 {
+            font-size: 3em;
+            color: black;
+        }
+        #index {
+            height: 650px;
+            max-width: 1000px;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            margin: auto;
+        }
+        #intro {
+            max-width: 500px;
+            justify-content: center;
+        }
+        #intro h1 {
+            margin: 0;
+        }
+        #intro, #index-login {
+            flex: 1;
+            display: flex;
+            flex-direction: column;    
+            align-items: center;    
+            margin: 30px;
+        }
+        #index-login {
+            min-width: 375px;
+            max-width: 400px;
+            height: 500px;
+            padding: 30px 0 30px 0;
+            /* background-color: rgb(74,18,18); */
+            background-color: rgb(30,30,30);
+            justify-content: space-between;
+            border-radius: 10%;
+        }
+        @media (max-width: 700px) {
+            #intro {
+                display: none;
+            }
+        }
+    </style>
+
     <div id="index">
         <div id="intro">
             <h1>Welcome to setList!</h1>
@@ -16,12 +76,12 @@
                     </label>
                     <input class="form-control-plaintext mb-4" type="password" name="password" placeholder="password" required>
                 </fieldset>
-                <input class="btn btn-secondary mt-1" style="width: 300px" type="submit" value="Log In">
+                <input class="btn btn-danger mt-1" style="width: 300px" type="submit" value="Log In">
                 </form>
             </div>
             <div>
                 <h6 style="display: inline" >Don't have an account?</h6>
-                <a href="/user/signup" class="btn btn-primary ms-2">Sign Up</a>
+                <a href="/user/signup" class="btn btn-warning ms-2">Sign Up</a>
             </div> 
         </div>
     </div>

@@ -104,69 +104,22 @@ fieldset {
     max-width: 250px;
 }
 
-#index {
-    height: 650px;
-    max-width: 900px;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    margin: auto;
-}
-
-#intro {
-    max-width: 400px;
-    justify-content: center;
-}
-
-#intro h1 {
-    margin: 0;
-}
-
-#intro, #index-login {
-    flex: 1;
-    display: flex;
-    flex-direction: column;    
-    align-items: center;    
-    margin: 30px;
-}
-
-#index-login {
-    min-width: 375px;
-    max-width: 400px;
-    height: 500px;
-    padding: 30px 0 30px 0;
-    /* background-color: rgb(74,18,18); */
-    background-color: rgb(30,30,30);
-    justify-content: space-between;
-    border-radius: 10%;
-}
-
-
 
 .btn {
     box-shadow: 1px 1px 4px black;
     border: none;
 }
 
-.btn-secondary {
-    background: linear-gradient( rgb(120,120,120),  rgb(100,100,100));
-}
-
-.btn-secondary:hover {
-    background: linear-gradient( rgb(100,100,100),  rgb(80,80,80));
+.btn:hover {
+    opacity: .8;
 }
 
 .btn-danger {
-    background: linear-gradient( #e06b65,  #cb413b);
+    background: linear-gradient(rgb(254,88,80), rgb(209,22,19));
 }
 
 .btn-warning {
-    background: linear-gradient( #f2ac83,  #d5804e);
-}
-
-.btn-warning:hover {
-    background-color: #da8d5f;   
+    background: linear-gradient( rgb(255,175,9),  rgb(247,131,0));
 }
 
 .form-control-plaintext {
@@ -182,10 +135,3 @@ fieldset {
     /* border: 5px solid rgb(75,75,75);    */
 }
 
-
-
-@media (max-width: 600px) {
-    #intro {
-        display: none;
-    }
-}
