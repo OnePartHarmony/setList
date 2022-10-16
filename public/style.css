@@ -11,12 +11,12 @@ nav {
     border-bottom: 1.5px solid rgb(75,75,75);
     font-size: 1.1em;
     background-color: rgb(20,20,20);
-
 }
 
 .navbar-brand {
     font-weight: 600;
     font-size: 1.2em;
+    font-family: "Rock Salt", cursive;
 }
 
 .navbar-toggler {
@@ -49,10 +49,31 @@ nav {
     position: fixed;
     top: 59px;
     width: 200px;
-    height: 600px;
+    height: calc(100vh - 50px);    
     background-color: black;
-    border: 1px solid green;
+}
+
+#sidebar div {
+    height: 500px;
     display: flex;
+    flex-direction: column;
+    justify-content: space-evenly; 
+}
+
+.sidebar-link {
+    color: white;
+    text-decoration: none;
+    font-size: 1.3em;
+    cursor: pointer;
+}
+
+.sidebar-link:hover {
+    color: rgb(255,175,9);
+}
+
+.sidebar-icon {
+    width: 50px;
+    margin: 0 10px 0 10px;
 }
 
 #main-section {
@@ -65,8 +86,26 @@ nav {
     padding: 1rem;
 }
 
+@media (max-width: 800px) {
+    #sidebar {
+        width: 60px;
+        background-color: rgb(20,20,20);
+        border-right: 1.5px solid rgb(75,75,75);
+    }
+    .sidebar-icon {
+        width: 40px;
+    }
+    .sidebar-link span {
+        display: none;
+    }
+    #main-section {
+        left: 60px;
+        width: calc(97vw - 60px);
+    }
+}
+
 #main-content {
-    padding-bottom: 4rem;    
+    padding-bottom: 4rem;
 }
 
 #footer {
@@ -98,6 +137,12 @@ fieldset {
     width: 300px;
     text-align: center;
     background-color: rgb(50,50,50);
+}
+
+.card-header {
+    color: white;
+    text-decoration: none;
+    font-size: 1.3em;
 }
 
 .group-card-img {

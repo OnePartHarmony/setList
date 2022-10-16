@@ -1,10 +1,11 @@
 {% layout "layout.liquid" %}
 {% block content %}
-{%- comment -%} Override styling for normal pages {%- endcomment -%}
+{%- comment -%} Override styling for normal pages and style homepage-specific items{%- endcomment -%}
     <style>
         body {
             background-image: url(https://i.imgur.com/E2Gg3wn.jpg);
             background-size: cover;
+            background-position: center;
         }
         #sidebar {
             display: none;
@@ -17,8 +18,11 @@
             left: auto;
         }
         h1 {
-            font-size: 3em;
+            font-size: 6em;
+            font-weight: bold;
             color: black;
+            font-family: "Rock Salt", cursive;
+            text-shadow: 6px 6px 8px rgba(0,0,0,.7);
         }
         #index {
             height: 650px;
@@ -48,10 +52,16 @@
             max-width: 400px;
             height: 500px;
             padding: 30px 0 30px 0;
-            /* background-color: rgb(74,18,18); */
-            background-color: rgb(30,30,30);
+            background-color: rgb(20,20,20);
             justify-content: space-between;
             border-radius: 10%;
+            box-shadow: 8px 8px 10px rgba(0,0,0,.7);
+        }
+        @media (max-width: 900px) {
+            h1 {
+                font-size: 4em;
+                text-shadow: 4px 4px 6px rgba(0,0,0,.7);
+            }
         }
         @media (max-width: 700px) {
             #intro {
@@ -62,7 +72,7 @@
 
     <div id="index">
         <div id="intro">
-            <h1>Welcome to setList!</h1>
+            <h1>setList</h1>
         </div>
         <div id="index-login">
             <div>

@@ -9,9 +9,9 @@ function toggleDisplay(id) {
 
 <nav class="navbar navbar-expand-md navbar-dark fixed-top">
     <div class="container-fluid">
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navCollapse" aria-controls="navCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        {%- comment -%} <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navCollapse" aria-controls="navCollapse" aria-expanded="false" aria-label="Toggle navigation">
             <img src="https://i.imgur.com/cg6rOb0.png" style="height: 30px">
-        </button>
+        </button> {%- endcomment -%}
         <a href="/" class="navbar-brand">setList</a>
         {% if session.loggedIn %}
             <img id="user-image" onclick="toggleDisplay('user-menu')" alt="user image" title="user menu" class="me-4" style="height: 40px; border-radius: 50%" src="
@@ -31,19 +31,19 @@ function toggleDisplay(id) {
 
 
         {% endif %}
-        <div class="collapse navbar-collapse justify-content-end" id="navCollapse">
+        {%- comment -%} <div class="collapse navbar-collapse justify-content-end" id="navCollapse">
             {% if session.loggedIn %}
                 {% if session.groupId %}
                     <a href="/songs/new" class="nav-link text-light">New Song</a>
                     <a href="/lists/new" class="nav-link text-light">New List</a>
                     <a href="/songs" class="nav-link text-light">All Songs</a>                    
                     <a href="/lists" class="nav-link text-light">All Lists</a>                    
-                {% endif %}               
+                {% endif %}
             {% else %}
                 <a href="/user/signup" class="nav-link text-light">Sign Up</a>
                 <a href="/user/login" class="nav-link text-light">Log In</a>
             {% endif %}
-        </div>
+        </div> {%- endcomment -%}
     </div>
 </nav>
 <div id="user-menu" style="display: none">
