@@ -1,0 +1,34 @@
+{% layout "layout.liquid" %}
+{% block content %}
+
+    <div style="text-align: center">
+       <h1>{{group.name}}</h1>
+       <img src="{{group.img}}" style="max-height: 350px">
+       <hr>
+       <h5>{{group.members.length}} Members:
+       {% for member in memberArray %}
+            <br> {{member}}
+       {% endfor %}
+       {% if memberArray.length < group.members.length %}
+            <br> not all members have created accounts
+        {% endif %}
+        </h5>
+        <br>
+        {% if session.groupId == group.id %}
+            <a class="btn btn-warning me-2" href="/songs">View Songs</a>
+            <a class="btn btn-warning" href="/lists">View Lists</a>        
+        {% else %}
+            <form action="/groups/{{group.id}}" method="POST">
+                <input class="btn btn-warning mt-4" type="submit" value="Work as {{group.name}}">
+            </form>
+        {% endif %}   
+       <hr>
+       {% if group.owner == session.userId %}
+       <div class="btn-group-md">
+            <a class="btn btn-danger me-3" href="/groups/edit/{{group.id}}">Edit Group</a>
+            <a class="btn btn-danger" href="/groups/delete/{{group.id}}">Delete Group</a>
+       </div>
+       {% endif %}
+    </div>
+
+{% endblock %}

@@ -1,0 +1,43 @@
+{% block content %}
+{%- comment -%} A function to make elements toggle the display of other elements {%- endcomment -%}
+<script>
+function toggleDisplay(id) {
+   let isDisplayNone = document.getElementById(id).style.display === "none"
+   document.getElementById(id).style.display = isDisplayNone ? "flex" : "none"
+}
+</script>
+
+<nav class="navbar navbar-expand-md navbar-dark fixed-top">
+    <div class="container-fluid">
+        {%- comment -%} <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navCollapse" aria-controls="navCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <img src="https://i.imgur.com/cg6rOb0.png" style="height: 30px">
+        </button> {%- endcomment -%}
+        <a href="/" class="navbar-brand">setList</a>
+        {% if session.loggedIn %}
+        {%- comment -%} User image or placeholder to trigger dropdown user menu {%- endcomment -%}
+            <img id="user-image" onclick="toggleDisplay('user-menu')" alt="user image" title="user menu" class="me-4" src="
+            {% if session.userImg and session.userImg != "" %}
+                {{session.userImg}}
+            {% else %}
+                https://i.imgur.com/lyojELY.png
+            {% endif %}
+            ">
+
+    {%- comment -%} Group image or group name to represent working as group links to show group page {%- endcomment -%}
+            {% if session.groupImg and session.groupImg != "" %}
+                <a href="/groups/{{session.groupId}}" class="working-group"><img  src="{{session.groupImg}}" alt="{{session.groupName}} logo" title="{{session.groupName}}" style="height: 40px; border-radius: 50%"></a>
+            {% else if session.groupId %}
+                <a class="text-light working-group" href="/groups/{{session.groupId}}">{{session.groupName}}</a>
+            {% endif %}
+
+
+        {% endif %}
+    </div>
+</nav>
+<div id="user-menu" style="display: none">
+    <a href="/user/edit/{{session.userId}}" class="mt-3 user-menu-link" title="Edit Profile"><img class="user-menu-icon" alt="icon" src="https://i.imgur.com/TvKbgPP.png"><span>Edit Profile</span></a> 
+    <a href="/groups" class="mt-3 user-menu-link" title="Your Groups"><img class="user-menu-icon" alt="icon" src="https://i.imgur.com/3wxBplL.png"><span>Your Groups</span></a>                 
+    <a href="/groups/new" class="mt-3 user-menu-link" title="New Group"><img class="user-menu-icon" alt="icon" src="https://i.imgur.com/G0v4awo.png"><span>New Group</span></a>
+    <a href="/user/logout" class="mt-3 user-menu-link" title="Log Out"><img class="user-menu-icon" alt="icon" src="https://i.imgur.com/Vrs83v9.png"><span>Log Out</span></a> 
+</div>
+{% endblock %}

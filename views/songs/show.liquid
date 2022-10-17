@@ -1,0 +1,63 @@
+{% layout "layout.liquid" %}
+{% block content %}
+    <h1>{{song.name}}</h1>
+    <h4>{{song.description}}</h4>
+    {%- comment -%} Display key with symbols for sharp or flat {%- endcomment -%}
+    <h5>Key: {{song.key}}
+        {% if song.sharp %}
+        {{- "&#x266F" -}}
+        {% endif %}
+        {% if song.flat %}
+        {{- "&#x266D" -}}
+        {% endif %}
+        {% if song.minor %}
+        {{- "m" -}}
+        {% endif %}
+    </h5>
+    {%- comment -%} Display length in format 0:00 {%- endcomment -%}
+    <h5>Length: {{song.minutes}}{{- ":" -}}
+        {% if song.seconds < 10 %}
+            {{- "0" -}}{{- song.seconds -}}
+        {% else %}
+            {{- song.seconds -}}
+        {% endif %}
+    </h5>
+    {% if song.soloist != "" %}
+        <h5>Featuring {{song.soloist}}</h5>
+    {% endif %}
+    {% if session.groupId == song.owner %}
+        <hr>
+        <h4>Notes</h4>
+        <hr>
+        <div class="col-md-6">
+            <form action="/notes/{{song.id}}" method="POST">
+            <fieldset>
+                <legend>Write Note:</legend>
+                <label class="form-label">note:</label>
+                <input class="form-control-plaintext mb-3" type="text" placeholder="note about this song..." name="message" required>
+                <input class="btn btn-warning" type="submit" value="Add Note">
+            </fieldset>
+            </form>
+        </div>
+        <hr>
+        {% if song.notes.length > 0 %}
+            <div class="container-sm justify-content-center">
+                <div class="col-md-8 col-lg-6">
+                {% for note in song.notes %}
+                    {% render "note.liquid", note: note, session: session, songOrList: song %}
+                {% endfor %}
+                </div>
+            </div>
+        {% else %}
+            <small>No notes yet...</small>
+        {% endif %}
+        <hr>
+
+
+        <div class="btn-group">
+            <a class="btn btn-warning" href="/songs/edit/{{song.id}}">Edit Song</a>
+            <a class="btn btn-danger" href="/songs/delete/{{song.id}}">Delete Song</a>
+        </div>
+    {% endif %}
+
+{% endblock %}

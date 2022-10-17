@@ -1,0 +1,39 @@
+{% layout "layout.liquid" %}
+{% block content %}
+    {% if session.groupName %}
+        <h1 style="text-align: center">Songs by {{session.groupName}}</h1>
+        {% if songs.length > 0 %}
+            <div>
+            <div class="row justify-content-center">
+                {% for song in songs %}
+                <div class="card">
+                    <a class="card-header" href="/songs/{{song.id}}">{{song.name}}</a>
+                    <div class="card-body">
+                    {%- comment -%} Display key with symbols for sharp or flat {%- endcomment -%}
+                        <h5 class="card-text">{{- song.key -}}
+                            {% if song.sharp %}
+                            {{- "&#x266F" -}}
+                            {% endif %}
+                            {% if song.flat %}
+                            {{- "&#x266D" -}}
+                            {% endif %}
+                            {% if song.minor %}
+                            {{- "m" -}}
+                            {% endif %}
+                            </h5>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            </div>
+        {% else %}
+            <div class="row justify-content-center">
+                <h5 style="text-align: center">{{session.groupName}} doesn't have songs yet, time to add some!</h5>
+                <a class="btn btn-warning" style="width: 110px" href="/songs/new">New Song</a>
+            </div>
+        {% endif %}
+    {% else %}
+        <h2>Choose a group to view songs</h2>
+        <a class="btn btn-warning" href="/groups">Your Groups</a>
+    {% endif %}
+{% endblock %}

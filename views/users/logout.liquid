@@ -1,0 +1,11 @@
+{% layout "layout.liquid" %}
+{% block content %}
+    <h1>Do you really want to log out?</h1>
+    <div class="btn-group-lg">
+        <a href="/groups" class="btn btn-warning">Nevermind</a>
+        <form action="/user/logout?_method=DELETE" method="POST" style="display: inline">
+            <input class="btn btn-lg btn-danger" type="submit" value="Log Out">
+        </form>            
+    </div>
+
+{% endblock %}
