@@ -15,8 +15,8 @@
         </h5>
         <br>
         {% if session.groupId == group.id %}
-            <a class="btn btn-primary" href="/songs">View Songs</a>
-            <a class="btn btn-success" href="/lists">View Lists</a>        
+            <a class="btn btn-warning me-2" href="/songs">View Songs</a>
+            <a class="btn btn-warning" href="/lists">View Lists</a>        
         {% else %}
             <form action="/groups/{{group.id}}" method="POST">
                 <input class="btn btn-warning mt-4" type="submit" value="Work as {{group.name}}">
@@ -25,7 +25,7 @@
        <hr>
        {% if group.owner == session.userId %}
        <div class="btn-group-md">
-            <a class="btn btn-warning" href="/groups/edit/{{group.id}}">Edit Group</a>
+            <a class="btn btn-danger me-3" href="/groups/edit/{{group.id}}">Edit Group</a>
             <a class="btn btn-danger" href="/groups/delete/{{group.id}}">Delete Group</a>
        </div>
        {% endif %}

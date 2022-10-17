@@ -1,7 +1,7 @@
 {% layout "layout.liquid" %}
 {% block content %}
 
-    <div style="text-align: center">
+    <div>
        <h1>{{list.name}}</h1>
        {% if list.seconds != "" %}
             <h4>Length: {{list.minutes}}{{- ":" -}}
@@ -15,25 +15,47 @@
        <hr>
        <h5>{{list.description}}</h5>
        <hr>
-       <ol>
+       <ol style="display: flex; flex-direction: column; align-items: center">
             {% if list.listContents.length > 0 %}
                     {% for song in list.listContents %}
+
                         <li>
-                            <div class="card mb-4">
+                            {%- comment -%} background color alternates {%- endcomment -%}
+                            <div class="list-song mb-4"
+                            {% assign remainder = forloop.index | modulo: 2 %}
+                            {% if remainder == 0 %}
+                               style="background-color: rgb(20,20,20)"
+                            {% else %}
+                                   style="background-color: rgb(75,75,75)"
+                            {% endif %}
+                            >
                                 <h5>{{song.name}}</h5>
+                    {%- comment -%} Display key with symbols for sharp or flat {%- endcomment -%}
+                                <h5 style="color: rgb(254,81,74)">{{song.key}}
+                                    {% if song.sharp %}
+                                    {{- "&#x266F" -}}
+                                    {% endif %}
+                                    {% if song.flat %}
+                                    {{- "&#x266D" -}}
+                                    {% endif %}
+                                    {% if song.minor %}
+                                    {{- "m" -}}
+                                    {% endif %}
+                                </h5>
                             {%- comment -%} Display length in format 0:00 {%- endcomment -%}
-                                <h6>Length: {{song.minutes}}{{- ":" -}}
+                                <h5>{{song.minutes}}{{- ":" -}}
                                     {% if song.seconds < 10 %}
                                         {{- "0" -}}{{- song.seconds -}}
                                     {% else %}
                                         {{- song.seconds -}}
                                     {% endif %}
-                                </h6>
+                                </h5>
                                 {% if song.soloist != "" %}
-                                    <h6>Featuring {{song.soloist}}</h6>
+                                    <h6 style="color: rgb(254,81,74)">{{song.soloist}}</h6>
                                 {% endif %}
                             </div>
                         </li>
+
                     {% endfor %}
             {% else %}
                     <h4>No songs in this list yet.</h4>

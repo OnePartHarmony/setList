@@ -23,34 +23,21 @@ function toggleDisplay(id) {
             {% endif %}
             ">
 
-    {%- comment -%} Group image or group name to represent working as group {%- endcomment -%}
+    {%- comment -%} Group image or group name to represent working as group links to show group page {%- endcomment -%}
             {% if session.groupImg and session.groupImg != "" %}
-                <img class="working-group" src="{{session.groupImg}}" alt="{{session.groupName}} logo" title="{{session.groupName}}" style="height: 40px; border-radius: 50%">
+                <a href="/groups/{{session.groupId}}" class="working-group"><img  src="{{session.groupImg}}" alt="{{session.groupName}} logo" title="{{session.groupName}}" style="height: 40px; border-radius: 50%"></a>
             {% else if session.groupId %}
-                <p class="text-light working-group">{{session.groupName}}</p>
+                <a class="text-light working-group" href="/groups/{{session.groupId}}">{{session.groupName}}</a>
             {% endif %}
 
 
         {% endif %}
-        {%- comment -%} <div class="collapse navbar-collapse justify-content-end" id="navCollapse">
-            {% if session.loggedIn %}
-                {% if session.groupId %}
-                    <a href="/songs/new" class="nav-link text-light">New Song</a>
-                    <a href="/lists/new" class="nav-link text-light">New List</a>
-                    <a href="/songs" class="nav-link text-light">All Songs</a>                    
-                    <a href="/lists" class="nav-link text-light">All Lists</a>                    
-                {% endif %}
-            {% else %}
-                <a href="/user/signup" class="nav-link text-light">Sign Up</a>
-                <a href="/user/login" class="nav-link text-light">Log In</a>
-            {% endif %}
-        </div> {%- endcomment -%}
     </div>
 </nav>
 <div id="user-menu" style="display: none">
-    <a href="/user/edit/{{session.userId}}" class="mt-3 user-menu-link" title="Edit Profile"><img class="user-menu-icon" alt="icon" src="https://i.imgur.com/I9Zk5ie.png"><span>Edit Profile</span></a> 
-    <a href="/groups" class="mt-3 user-menu-link" title="Your Groups"><img class="user-menu-icon" alt="icon" src="https://i.imgur.com/wpmU1vc.png"><span>Your Groups</span></a>                 
-    <a href="/groups/new" class="mt-3 user-menu-link" title="New Group"><img class="user-menu-icon" alt="icon" src="https://i.imgur.com/t5SbqC8.png"><span>New Group</span></a>
-    <a href="/user/logout" class="mt-3 user-menu-link" title="Log Out"><img class="user-menu-icon" alt="icon" src="https://i.imgur.com/RalTz7D.png"><span>Log Out</span></a> 
+    <a href="/user/edit/{{session.userId}}" class="mt-3 user-menu-link" title="Edit Profile"><img class="user-menu-icon" alt="icon" src="https://i.imgur.com/TvKbgPP.png"><span>Edit Profile</span></a> 
+    <a href="/groups" class="mt-3 user-menu-link" title="Your Groups"><img class="user-menu-icon" alt="icon" src="https://i.imgur.com/3wxBplL.png"><span>Your Groups</span></a>                 
+    <a href="/groups/new" class="mt-3 user-menu-link" title="New Group"><img class="user-menu-icon" alt="icon" src="https://i.imgur.com/G0v4awo.png"><span>New Group</span></a>
+    <a href="/user/logout" class="mt-3 user-menu-link" title="Log Out"><img class="user-menu-icon" alt="icon" src="https://i.imgur.com/Vrs83v9.png"><span>Log Out</span></a> 
 </div>
 {% endblock %}

@@ -18,6 +18,13 @@ db.on("open", () => {
             )})
                 .then(user => {
                     Group.create({name: "Plastic Ono Band", members: ["john@123.com", "yoko@123.com"], img: "https://i.imgur.com/IWTzL3F.jpg", owner: user.id})
+                        .then(group => {
+                            Song.create([
+                                {name: "Power to the People", description: "The song was written by Lennon in response to an interview he gave to Tariq Ali and Robin Blackburn, published in Red Mole (8-22 March 1971).", soloist: "John Lennon", key: "D", sharp: false, flat: false, minor: false, minutes: 3, seconds: 15, owner: group.id},
+                                {name: "Working Class Hero", description: "Stridently political, the song is a commentary on the difference between social classes. According to Lennon, it is about working class people being processed into the middle classes, into the 'machine'.", soloist: "John Lennon", key: "G", sharp: false, flat: false, minor: false, minutes: 3, seconds: 48, owner: group.id},
+                                {name: "Mother", description: "The lyrics of 'Mother' address both of Lennon's parents, each of whom abandoned him in his childhood. His father, Alf, left the family when John was an infant. His mother, Julia, did not live with her son, although they had a good relationship; she was hit and killed in a car accident on 15 July 1958 by an off-duty policeman named Eric Clague, when Lennon was 17. In one of his last concerts, Lennon stated that the song was not just about his parents, but was rather 'about 99% of the parents, alive or half dead'.", soloist: "John Lennon", key: "C", sharp: false, flat: false, minor: false, minutes: 5, seconds: 34, owner: group.id}
+                            ])
+                        })
                         .catch(err => {
                             console.log(err)
                             db.close()
@@ -50,7 +57,7 @@ db.on("open", () => {
                             console.log(err)
                             db.close()
                         })
-                })
+                })                
                 .catch(err => {
                     console.log(err)
                     db.close()

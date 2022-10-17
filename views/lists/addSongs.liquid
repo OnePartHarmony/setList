@@ -5,8 +5,21 @@
         <fieldset>
 {%- comment -%} Display songs from list first to maintain list order {%- endcomment -%}
             {% for song in list.listContents %}
-                <div class="card mb-4">
+
+                <div class="list-song mb-4">
                     <h5>{{song.name}}</h5>
+            {%- comment -%} Display key with symbols for sharp or flat {%- endcomment -%}
+                    <h5>Key: {{song.key}}
+                        {% if song.sharp %}
+                        {{- "&#x266F" -}}
+                        {% endif %}
+                        {% if song.flat %}
+                        {{- "&#x266D" -}}
+                        {% endif %}
+                        {% if song.minor %}
+                        {{- "m" -}}
+                        {% endif %}
+                    </h5>
                 {%- comment -%} Display length in format 0:00 {%- endcomment -%}
                     <h6>Length: {{song.minutes}}{{- ":" -}}
                         {% if song.seconds < 10 %}
@@ -21,8 +34,10 @@
                     <input class="form-check-input mb-4" type="checkbox" name="{{song.id}}" checked>
                 </div>
             {% endfor %}
+
             {% for song in newSongs %}
-                <div class="card mb-4">
+
+                <div class="list-song mb-4">
                     <h5>{{song.name}}</h5>
                     <h6>Length: {{song.minutes}}{{- ":" -}}
                         {% if song.seconds < 10 %}
@@ -36,6 +51,8 @@
                     {% endif %}
                     <input class="form-check-input mb-4" type="checkbox" name="{{song.id}}">
                 </div>
+
+
             {% endfor %}
         </fieldset>
         <input class="btn btn-success" type="submit" value="Add Songs">

@@ -8,7 +8,7 @@
         <label class="form-label">Group Name:</label>
         <input class="form-control-plaintext mb-4" type="text" name="name" value="{{group.name}}" required>
         <label class="form-label">Image Link (optional):</label>
-        <input class="form-control-plaintext mb-4" type="url" name="img" value="{{group.img}}" required>
+        <input class="form-control-plaintext mb-4" type="url" name="img" value="{{group.img}}">
         <label class="form-label">Group Members (email addresses, comma-separated):</label>
         <input class="form-control-plaintext mb-4" type="email" name="members" 
         value="{{group.members | join: ","}}" multiple>
