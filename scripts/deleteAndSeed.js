@@ -13,11 +13,16 @@ const db = mongoose.connection
 db.on("open", () => {
     Promise.all([User.deleteMany(), Group.deleteMany(), Song.deleteMany(), List.deleteMany()])
         .then( async () => {
-            User.create({username: "JohnLennon", emailAddress: "john@gmail.com", password: await bcrypt.hash("123",
+            User.create({username: "JohnLennon", emailAddress: "john@123.com", img: "https://i.imgur.com/khLCaib.jpg", password: await bcrypt.hash("123",
                 await bcrypt.genSalt(10)
             )})
                 .then(user => {
-                    Group.create({name: "The Beatles", members: ["john@gmail.com", "paul@yahoo.com", "george@aol.com", "ringo@hotmail.com"], img: "https://i.imgur.com/HIrepx1.jpg", owner: user.id})
+                    Group.create({name: "Plastic Ono Band", members: ["john@123.com", "yoko@123.com"], img: "https://i.imgur.com/IWTzL3F.jpg", owner: user.id})
+                        .catch(err => {
+                            console.log(err)
+                            db.close()
+                        })
+                    Group.create({name: "The Beatles", members: ["john@123.com", "paul@123.com", "george@123.com", "ringo@123.com"], img: "https://i.imgur.com/HIrepx1.jpg", owner: user.id})
                         .then(group => {
                             Song.create([
                                 {name: "All You Need is Love", soloist: "John Lennon", key: "G", sharp: false, flat: false, minor: false, minutes: 3, seconds: 57, owner: group.id},

@@ -122,6 +122,12 @@ nav {
         left: 60px;
         width: calc(97vw - 60px);
     }
+    .user-menu-icon {
+        height: 40px;
+    }
+    .user-menu-link span {
+        display: none;
+    }
 }
 
 #main-content {
@@ -163,6 +169,10 @@ fieldset {
     color: white;
     text-decoration: none;
     font-size: 1.3em;
+}
+
+.card-header:hover {
+    color: rgb(255,175,9);
 }
 
 .group-card-img {
