@@ -1,15 +1,20 @@
 {% block content %}
-
-<div id="sidebar">
-    <div>
-    {% if session.groupId %}
-        <a href="/songs/new" class="sidebar-link"><img class="sidebar-icon" src="https://i.imgur.com/GFUfjRr.png" alt="icon" title="New Song"><span>New Song</span></a>
-        <a href="/lists/new" class="sidebar-link"><img class="sidebar-icon" src="https://i.imgur.com/1ecCwFL.png" alt="icon" title="New List"><span>New List</span></a>
-        <a href="/songs" class="sidebar-link"><img class="sidebar-icon" src="https://i.imgur.com/LD7FSyw.png" alt="icon" title="All Songs"><span>All Songs</span></a>                    
-        <a href="/lists" class="sidebar-link"><img class="sidebar-icon" src="https://i.imgur.com/mxUelZB.png" alt="icon" title="All Lists"><span>All Lists</span></a>                    
-    {% endif %}
+{% if session.groupId %}
+    <div id="sidebar">
+        <div>    
+            <a href="/songs/new" class="sidebar-link"><img class="sidebar-icon" src="https://i.imgur.com/GFUfjRr.png" alt="icon" title="New Song"><span>New Song</span></a>
+            <a href="/lists/new" class="sidebar-link"><img class="sidebar-icon" src="https://i.imgur.com/1ecCwFL.png" alt="icon" title="New List"><span>New List</span></a>
+            <a href="/songs" class="sidebar-link"><img class="sidebar-icon" src="https://i.imgur.com/LD7FSyw.png" alt="icon" title="All Songs"><span>All Songs</span></a>                    
+            <a href="/lists" class="sidebar-link"><img class="sidebar-icon" src="https://i.imgur.com/mxUelZB.png" alt="icon" title="All Lists"><span>All Lists</span></a>    
+        </div>
     </div>
-</div>
-
+{% else %}
+    <style>
+        #main-section {
+            width: 98vw;
+            left: auto;
+        }
+    </style>
+{% endif %}
 
 {% endblock %}

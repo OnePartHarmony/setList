@@ -14,19 +14,20 @@ function toggleDisplay(id) {
         </button> {%- endcomment -%}
         <a href="/" class="navbar-brand">setList</a>
         {% if session.loggedIn %}
-            <img id="user-image" onclick="toggleDisplay('user-menu')" alt="user image" title="user menu" class="me-4" style="height: 40px; border-radius: 50%" src="
+        {%- comment -%} User image or placeholder to trigger dropdown user menu {%- endcomment -%}
+            <img id="user-image" onclick="toggleDisplay('user-menu')" alt="user image" title="user menu" class="me-4" src="
             {% if session.userImg and session.userImg != "" %}
                 {{session.userImg}}
             {% else %}
-                https://i.imgur.com/OUa7lxr.png
+                https://i.imgur.com/lyojELY.png
             {% endif %}
             ">
 
-
+    {%- comment -%} Group image or group name to represent working as group {%- endcomment -%}
             {% if session.groupImg and session.groupImg != "" %}
-                <a href="/groups/{{session.groupId}}"><img src="{{session.groupImg}}" alt="{{session.groupName}} logo" title="group menu" style="height: 40px; border-radius: 50%"></a>
+                <img class="working-group" src="{{session.groupImg}}" alt="{{session.groupName}} logo" title="{{session.groupName}}" style="height: 40px; border-radius: 50%">
             {% else if session.groupId %}
-                <a href="/groups/{{session.groupId}}" class="nav-link text-light" title="group menu">{{session.groupName}}</a>
+                <p class="text-light working-group">{{session.groupName}}</p>
             {% endif %}
 
 
@@ -47,9 +48,9 @@ function toggleDisplay(id) {
     </div>
 </nav>
 <div id="user-menu" style="display: none">
-    <a href="/user/edit/{{session.userId}}" class="nav-link text-light mt-3">Edit Profile</a> 
-    <a href="/groups" class="nav-link text-light mt-3">Your Groups</a>                 
-    <a href="/groups/new" class="nav-link text-light mt-3">New Group</a>
-    <a href="/user/logout" class="nav-link text-light mt-3">Log Out</a> 
+    <a href="/user/edit/{{session.userId}}" class="mt-3 user-menu-link"><img class="user-menu-icon" alt="icon" src="https://i.imgur.com/I9Zk5ie.png">Edit Profile</a> 
+    <a href="/groups" class="mt-3 user-menu-link""><img class="user-menu-icon" alt="icon" src="https://i.imgur.com/wpmU1vc.png">Your Groups</a>                 
+    <a href="/groups/new" class="mt-3 user-menu-link""><img class="user-menu-icon" alt="icon" src="https://i.imgur.com/t5SbqC8.png">New Group</a>
+    <a href="/user/logout" class="mt-3 user-menu-link""><img class="user-menu-icon" alt="icon" src="https://i.imgur.com/RalTz7D.png">Log Out</a> 
 </div>
 {% endblock %}

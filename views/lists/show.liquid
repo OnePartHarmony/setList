@@ -41,7 +41,7 @@
        </ol>
        <hr>
        {% if list.owner == session.groupId %}
-            <a class="btn btn-success" href="/lists/songs/{{list.id}}">Add/Remove Songs</a>
+            <a class="btn btn-warning" href="/lists/songs/{{list.id}}">Add/Remove Songs</a>
             <hr>
             <h4>Notes</h4>
             <hr>
@@ -51,7 +51,7 @@
                     <legend>Write Note:</legend>
                     <label class="form-label">note:</label>
                     <input class="form-control-plaintext mb-3" type="text" placeholder="note about this set list..." name="message" required>
-                    <input class="btn btn-success" type="submit" value="Add Note">
+                    <input class="btn btn-warning" type="submit" value="Add Note">
                 </fieldset>
                 </form>
             </div>
@@ -69,7 +69,7 @@
             {% endif %}
             <hr>
             <div class="btn-group-lg">        
-                <a class="btn btn-primary" href="/lists/edit/{{list.id}}">Edit List</a>
+                <a class="btn btn-warning" href="/lists/edit/{{list.id}}">Edit List</a>
                 <a class="btn btn-danger" href="/lists/delete/{{list.id}}">Delete List</a>
             </div>
        {% endif %}

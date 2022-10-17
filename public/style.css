@@ -19,26 +19,46 @@ nav {
     font-family: "Rock Salt", cursive;
 }
 
-.navbar-toggler {
-    border: none;
-}
-
-.navbar-toggler:focus {
-    box-shadow: none;
+.working-group {
+    position: absolute;
+    right: 80px;
 }
 
 #user-image {
     cursor: pointer;
+    height: 40px;
+    border-radius: 50%;
+    position: absolute;
+    right: 0;
 }
 
 #user-menu {
     flex-direction: column;
+    justify-content: space-evenly;
     position: absolute;
     right: 0;
+    top: -59px;
     z-index: 1;
-    background-color: rgb(40,40,40);
+    background-color: rgb(20,20,20);
     border-radius: 5%;
     padding: 5px;
+    height: 300px;
+
+}
+
+.user-menu-link {
+    text-decoration: none;
+    font-size: 1.1em;
+    color: white;
+}
+
+.user-menu-link:hover {
+    color: rgb(254,88,80);
+}
+
+.user-menu-icon {
+    height: 30px;
+    margin-right: 7px;
 }
 
 #sidebar-section {
