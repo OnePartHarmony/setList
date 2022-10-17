@@ -9,9 +9,6 @@ function toggleDisplay(id) {
 
 <nav class="navbar navbar-expand-md navbar-dark fixed-top">
     <div class="container-fluid">
-        {%- comment -%} <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navCollapse" aria-controls="navCollapse" aria-expanded="false" aria-label="Toggle navigation">
-            <img src="https://i.imgur.com/cg6rOb0.png" style="height: 30px">
-        </button> {%- endcomment -%}
         <a href="/" class="navbar-brand">setList</a>
         {% if session.loggedIn %}
         {%- comment -%} User image or placeholder to trigger dropdown user menu {%- endcomment -%}
