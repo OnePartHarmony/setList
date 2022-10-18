@@ -9,7 +9,19 @@
 
 A full-stack web app for music ensembles to manage repertoire and setlists
 
+## Technologies Used
+Javascript
+-NodeJS
+-Express
+-LiquidJS
+MonogoDB
+-Mongoose
+Html5
+CSS
+
 ## Instructions
+Install dependencies from package.json by running npm install.
+
 
 ### using app
 1. Signup and login
