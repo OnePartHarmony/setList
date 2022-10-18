@@ -151,7 +151,7 @@
                     }
                     axios.put(`/lists/reorder/{{list.id}}/${startPosition}/${droppedPosition}`) 
                         .catch(err => console.error(err))
-                        .finally(location.reload())
+                        .finally(setTimeout(()=>location.reload(),500))
                 }
                 
             })
