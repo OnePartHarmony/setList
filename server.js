@@ -10,6 +10,7 @@ const SongRouter = require("./controllers/songs")
 const ListRouter = require("./controllers/lists")
 const NoteRouter = require("./controllers/notes")
 
+
 ////express application object////////
 const path = require("path")
 const app = require("liquid-express-views")(express(), {root: [path.resolve(__dirname, 'views/')]})
