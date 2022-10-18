@@ -3,7 +3,20 @@ body {
     color: white;
     font-family: 'Quicksand', sans-serif;
     position: relative;
+    scrollbar-color: rgb(60,60,60) rgb(0,0,0);
 }
+
+body::-webkit-scrollbar {
+    background-color: rgb(60,60,60);
+    width: 15px;
+}
+
+body::-webkit-scrollbar-thumb {
+    background-color: rgb(30,30,30);
+    border-radius: 15px;
+}
+
+
 
 nav {
     position: fixed;
