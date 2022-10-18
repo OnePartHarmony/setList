@@ -37,7 +37,6 @@ router.post("/", (req,res) => {
     req.body.minor = req.body.minor === "on" ? true : false
     Song.create(req.body)
         .then(song => {
-            console.log("new song: ", song)
             res.redirect("/songs")
         })
         .catch(err => res.redirect(`/error?error=${err}`))

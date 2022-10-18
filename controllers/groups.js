@@ -38,7 +38,6 @@ router.post("/", (req,res) => {
     req.body.members = uniqueArray
     Group.create(req.body)
         .then(group => {
-            console.log("new group: ", group)
             res.redirect("/groups")
         })
         .catch(err => res.redirect(`/error?error=${err}`))
@@ -58,7 +57,7 @@ router.get("/:groupId", (req,res) => {
                           memberArray.push(user.username)  
                         }                        
                     })
-                    .catch(err => console.log(err))
+                    .catch(err => res.redirect(`/error?error=${err}`))
             })
             res.render("groups/show", {group, session, memberArray})
         })
@@ -76,7 +75,6 @@ router.post("/:groupId", (req,res) => {
                     req.session.groupId = groupId
                     req.session.groupImg = group.img
                     req.session.members = group.members
-                    console.log("this is req.session: ", req.session)
                     res.redirect("/songs")
                 } else {
                     res.redirect(`/error?error=members%20of%20${group.name}%20only`)
