@@ -2,59 +2,98 @@
 {% block content %}
     <h1>Add Songs to {{list.name}}</h1>
     <form method="POST" action="/lists/songs/{{list.id}}?_method=PUT">
-        <fieldset>
+        {%- comment -%} <fieldset> {%- endcomment -%}
+            <ul class="song-list">
 {%- comment -%} Display songs from list first to maintain list order {%- endcomment -%}
-            {% for song in list.listContents %}
-
-                <div class="list-song mb-4">
-                    <h5>{{song.name}}</h5>
-            {%- comment -%} Display key with symbols for sharp or flat {%- endcomment -%}
-                    <h5>Key: {{song.key}}
-                        {% if song.sharp %}
-                        {{- "&#x266F" -}}
-                        {% endif %}
-                        {% if song.flat %}
-                        {{- "&#x266D" -}}
-                        {% endif %}
-                        {% if song.minor %}
-                        {{- "m" -}}
-                        {% endif %}
-                    </h5>
-                {%- comment -%} Display length in format 0:00 {%- endcomment -%}
-                    <h6>Length: {{song.minutes}}{{- ":" -}}
-                        {% if song.seconds < 10 %}
-                            {{- "0" -}}{{- song.seconds -}}
+                {% for song in list.listContents %}
+                    <li>
+            {%- comment -%} background color alternates {%- endcomment -%}
+                        <div class="list-song mb-4"
+                        {% assign remainder = forloop.index | modulo: 2 %}
+                        {% if remainder == 0 %}
+                            style="background-color: rgb(20,20,20)"
                         {% else %}
-                            {{- song.seconds -}}
+                            style="background-color: rgb(75,75,75)"
                         {% endif %}
-                    </h6>
-                    {% if song.soloist != "" %}
-                        <h6>Featuring {{song.soloist}}</h6>
-                    {% endif %}
-                    <input class="form-check-input mb-4" type="checkbox" name="{{song.id}}" checked>
-                </div>
-            {% endfor %}
+                        >
+                            <input class="list-song-checkbox me-4" type="checkbox" name="{{song.id}}" checked>
+                            <h5  class="list-song-name">{{song.name}}</h5>
+                    {%- comment -%} Display key with symbols for sharp or flat {%- endcomment -%}
+                            <h5  class="list-song-key">Key: {{song.key}}
+                                {% if song.sharp %}
+                                {{- "&#x266F" -}}
+                                {% endif %}
+                                {% if song.flat %}
+                                {{- "&#x266D" -}}
+                                {% endif %}
+                                {% if song.minor %}
+                                {{- "m" -}}
+                                {% endif %}
+                            </h5>
+                        {%- comment -%} Display length in format 0:00 {%- endcomment -%}
+                            <h5  class="list-song-time">{{song.minutes}}{{- ":" -}}
+                                {% if song.seconds < 10 %}
+                                    {{- "0" -}}{{- song.seconds -}}
+                                {% else %}
+                                    {{- song.seconds -}}
+                                {% endif %}
+                            </h5>
+                            {% if song.soloist != "" %}
+                                <h6  class="list-song-soloist">{{song.soloist}}</h6>
+                            {% endif %}                    
+                        </div>
+                    </li>
+                {% endfor %}
 
-            {% for song in newSongs %}
-
-                <div class="list-song mb-4">
-                    <h5>{{song.name}}</h5>
-                    <h6>Length: {{song.minutes}}{{- ":" -}}
-                        {% if song.seconds < 10 %}
-                            {{- "0" -}}{{- song.seconds -}}
+                {% for song in newSongs %}
+                    <li>
+    {%- comment -%} background color alternation lines up with previous songs {%- endcomment -%}
+                        <div class="list-song mb-4"
+                        {% assign listRemainder = list.listContents.length | modulo: 2 %}
+                        {% assign songRemainder = forloop.index | modulo: 2 %}
+                        {% if listRemainder == 0 %}
+                            {% if songRemainder == 0 %}
+                                style="background-color: rgb(20,20,20)"
+                            {% else %}
+                                style="background-color: rgb(75,75,75)"
+                            {% endif %}
                         {% else %}
-                            {{- song.seconds -}}
+                            {% if songRemainder != 0 %}
+                                style="background-color: rgb(20,20,20)"
+                            {% else %}
+                                style="background-color: rgb(75,75,75)"
+                            {% endif %}
                         {% endif %}
-                    </h6>
-                    {% if song.soloist != "" %}
-                        <h6>Featuring {{song.soloist}}</h6>
-                    {% endif %}
-                    <input class="form-check-input mb-4" type="checkbox" name="{{song.id}}">
-                </div>
+                        >
+                            <input class="list-song-checkbox me-4" type="checkbox" name="{{song.id}}">
+                            <h5  class="list-song-name">{{song.name}}</h5>
+                            <h5  class="list-song-key">Key: {{song.key}}
+                                {% if song.sharp %}
+                                {{- "&#x266F" -}}
+                                {% endif %}
+                                {% if song.flat %}
+                                {{- "&#x266D" -}}
+                                {% endif %}
+                                {% if song.minor %}
+                                {{- "m" -}}
+                                {% endif %}
+                            </h5>
+                            <h5  class="list-song-time">{{song.minutes}}{{- ":" -}}
+                                {% if song.seconds < 10 %}
+                                    {{- "0" -}}{{- song.seconds -}}
+                                {% else %}
+                                    {{- song.seconds -}}
+                                {% endif %}
+                            </h5>
+                            {% if song.soloist != "" %}
+                                <h6  class="list-song-soloist">{{song.soloist}}</h6>
+                            {% endif %}                    
+                        </div>
+                    </li>
 
-
-            {% endfor %}
-        </fieldset>
-        <input class="btn btn-success" type="submit" value="Add Songs">
+                {% endfor %}
+            </ul>
+        {%- comment -%} </fieldset> {%- endcomment -%}
+        <input class="btn btn-warning" type="submit" value="Add Songs">
     </form>
 {% endblock %}

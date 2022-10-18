@@ -6,21 +6,35 @@
             <div>
             <div class="row justify-content-center">
                 {% for song in songs %}
-                <div class="card">
+                <div class="card" style="width: 325px">
                     <a class="card-header" href="/songs/{{song.id}}">{{song.name}}</a>
-                    <div class="card-body">
-                    {%- comment -%} Display key with symbols for sharp or flat {%- endcomment -%}
-                        <h5 class="card-text">{{- song.key -}}
-                            {% if song.sharp %}
-                            {{- "&#x266F" -}}
-                            {% endif %}
-                            {% if song.flat %}
-                            {{- "&#x266D" -}}
-                            {% endif %}
-                            {% if song.minor %}
-                            {{- "m" -}}
+                    <div class="card-body" style="height: 100px; padding: 5px">
+                    {%- comment -%} Display key with symbols for sharp or flat {%- endcomment -%}                        
+                        {% if song.notes.length > 0 %}
+                            <h6 style="color: rgb(254,81,74)">Notes: {{song.notes.length}}</h6>
+                        {% endif %}
+                        {% if song.description and song.description!= "" %}
+                            <h6>{{song.description | truncate: 100}}</h6>
+                        {% else %}
+                            <h5>Length: {{song.minutes}}{{- ":" -}}
+                            {% if song.seconds < 10 %}
+                                {{- "0" -}}{{- song.seconds -}}
+                            {% else %}
+                                {{- song.seconds -}}
                             {% endif %}
                             </h5>
+                            <h5>Key: {{song.key}}
+                                {% if song.sharp %}
+                                {{- "&#x266F" -}}
+                                {% endif %}
+                                {% if song.flat %}
+                                {{- "&#x266D" -}}
+                                {% endif %}
+                                {% if song.minor %}
+                                {{- "m" -}}
+                                {% endif %}
+                            </h5>
+                        {% endif %}
                     </div>
                 </div>
                 {% endfor %}

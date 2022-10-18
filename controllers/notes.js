@@ -12,7 +12,9 @@ const router = express.Router()
 router.post("/:songOrListId", (req,res) => {
     const id = req.params.songOrListId
     req.body.author = req.session.userId
-    req.body.date = new Date().toLocaleString()
+    let date = new Date().toLocaleString() 
+    let dateWithoutSeconds = date.substring(0, (date.length - 6)) + date.substring((date.length -3 ),(date.length))
+    req.body.date = dateWithoutSeconds
     Song.findById(id)
         .then(song => {
             if (song == null) {

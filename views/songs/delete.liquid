@@ -1,8 +1,8 @@
 {% layout "layout.liquid" %}
 {% block content %}
-    <h1>Are you sure you want to delete {{song.name}}?</h1>
+    <h1>Are you sure you want to delete<br>{{song.name}}?</h1>
     <div class="btn-group-lg">
-        <a class="btn btn-primary mb-4" href="/songs/{{song.id}}">No, back to song</a>
+        <a class="btn btn-warning mb-4" href="/songs/{{song.id}}">No, back to song</a>
         <form method="POST" action="/songs/{{song.id}}?_method=DELETE">
             <input class="btn btn-danger" type="submit" value="Delete {{song.name}}">
         </form> 

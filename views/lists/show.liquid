@@ -15,7 +15,7 @@
        <hr>
        <h5>{{list.description}}</h5>
        <hr>
-       <ol style="display: flex; flex-direction: column; align-items: center">
+       <ol class="song-list">
             {% if list.listContents.length > 0 %}
                     {% for song in list.listContents %}
 
@@ -29,9 +29,9 @@
                                    style="background-color: rgb(75,75,75)"
                             {% endif %}
                             >
-                                <h5>{{song.name}}</h5>
+                                <h5 class="list-song-name">{{song.name}}</h5>
                     {%- comment -%} Display key with symbols for sharp or flat {%- endcomment -%}
-                                <h5 style="color: rgb(254,81,74)">{{song.key}}
+                                <h5 class="list-song-key">{{song.key}}
                                     {% if song.sharp %}
                                     {{- "&#x266F" -}}
                                     {% endif %}
@@ -43,16 +43,18 @@
                                     {% endif %}
                                 </h5>
                             {%- comment -%} Display length in format 0:00 {%- endcomment -%}
-                                <h5>{{song.minutes}}{{- ":" -}}
+                                <h5 class="list-song-time">{{song.minutes}}{{- ":" -}}
                                     {% if song.seconds < 10 %}
                                         {{- "0" -}}{{- song.seconds -}}
                                     {% else %}
                                         {{- song.seconds -}}
                                     {% endif %}
                                 </h5>
+                                <h6 class="list-song-soloist">
                                 {% if song.soloist != "" %}
-                                    <h6 style="color: rgb(254,81,74)">{{song.soloist}}</h6>
+                                   {{song.soloist}}
                                 {% endif %}
+                                </h6>
                             </div>
                         </li>
 
@@ -61,13 +63,14 @@
                     <h4>No songs in this list yet.</h4>
             {% endif %}
        </ol>
-       <hr>
-       {% if list.owner == session.groupId %}
-            <a class="btn btn-warning" href="/lists/songs/{{list.id}}">Add/Remove Songs</a>
+      
+        {% if list.owner == session.groupId %}
+            <a class="btn btn-danger" href="/lists/songs/{{list.id}}">Add/Remove Songs</a>
+            <br>
             <hr>
             <h4>Notes</h4>
             <hr>
-            <div class="col-md-6">
+            <div class="col-md-6 ms-4">
                 <form action="/notes/{{list.id}}" method="POST">
                 <fieldset>
                     <legend>Write Note:</legend>
@@ -94,7 +97,7 @@
                 <a class="btn btn-warning" href="/lists/edit/{{list.id}}">Edit List</a>
                 <a class="btn btn-danger" href="/lists/delete/{{list.id}}">Delete List</a>
             </div>
-       {% endif %}
-    </div>
+        {% endif %}
+    </div> 
 
 {% endblock %}

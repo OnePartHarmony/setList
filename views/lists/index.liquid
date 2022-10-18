@@ -6,12 +6,22 @@
             <div class="row justify-content-center mb-4">
                 {% for list in lists %}
                     <div class="card">
-                        <h4 class="card-header">{{ list.name }}</h4>
+                        <a href="/lists/{{list.id}}" class="card-header"><h2>{{ list.name }}</h2></a>
                         <div class="card-body" style="background-color: rgb(50,50,50)">
-                            <a class="btn btn-danger" href="/lists/{{list.id}}">
-                            View
-                            {{list.name}}
-                            </a>
+                            {% if list.seconds != "" %}
+                                <h4 class="mb-3">{{list.minutes}}{{- ":" -}}
+                                {% if list.seconds < 10 %}
+                                    {{- "0" -}}{{- list.seconds -}}
+                                {% else %}
+                                    {{- list.seconds -}}
+                                {% endif %}
+                                </h4>
+                            {% endif %}
+                            <p>{{list.description}}</p>
+                            <h5>Songs: {{list.listContents.length}}</h5>
+                            {% if list.notes.length > 0 %}
+                                <h6 style="color: rgb(254,81,74)">Notes: {{list.notes.length}}</h6>
+                            {% endif %}
                         </div>
                     </div>
                 {% endfor %}
