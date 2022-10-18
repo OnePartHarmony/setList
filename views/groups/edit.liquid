@@ -4,16 +4,18 @@
   <div class="container-sm" style="max-width: 700px; width: 70vw">
     <form method="POST" action="/groups/{{group.id}}?_method=PUT">
       <fieldset>
-        <legend>Edit {{group.name}}</legend>
+        <legend class="mb-4">Edit {{group.name}}</legend>
         <label class="form-label">Group Name:</label>
         <input class="form-control-plaintext mb-4" type="text" name="name" value="{{group.name}}" required>
         <label class="form-label">Image Link (optional):</label>
         <input class="form-control-plaintext mb-4" type="url" name="img" value="{{group.img}}">
         <label class="form-label">Group Members (email addresses, comma-separated):</label>
-        <input class="form-control-plaintext mb-4" type="email" name="members" 
+        <input class="form-control-plaintext mb-5" type="email" name="members" 
         value="{{group.members | join: ","}}" multiple>
+        <input class="btn btn-warning" type="submit" value="Update Group">
+        <a class="btn btn-danger" href="/groups/{{group.id}}">Cancel</a>
       </fieldset>
-      <input class="btn btn-success" type="submit" value="Update Group">
+      
     </form>
   </div>
 

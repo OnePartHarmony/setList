@@ -1,10 +1,12 @@
 {% layout "layout.liquid" %}
 {% block content %}
     <h1>{{song.name}}</h1>
-    <h4>{{song.description}}</h4>
+    {% if song.description and song.description != "" %}
+        <h4>{{song.description}}</h4>
+    {% endif %}
     <br>
     {%- comment -%} Display key with symbols for sharp or flat {%- endcomment -%}
-    <h5>Key: {{song.key}}
+    <h5 class="mb-3">Key: {{song.key}}
         {% if song.sharp %}
         {{- "&#x266F" -}}
         {% endif %}
@@ -16,18 +18,18 @@
         {% endif %}
     </h5>
     {%- comment -%} Display length in format 0:00 {%- endcomment -%}
-    <h5>Length: {{song.minutes}}{{- ":" -}}
+    <h5 class="mb-3">Length: {{song.minutes}}{{- ":" -}}
         {% if song.seconds < 10 %}
             {{- "0" -}}{{- song.seconds -}}
         {% else %}
             {{- song.seconds -}}
         {% endif %}
     </h5>
-    {% if song.soloist != "" %}
+    {% if song.soloist and song.soloist != "" %}
         <h5>Featuring {{song.soloist}}</h5>
     {% endif %}
     {% if session.groupId == song.owner %}
-        <hr>
+        <hr class="mt-5">
         <h4>Notes</h4>
         <hr>
         <div class="col-md-6">
@@ -50,13 +52,13 @@
                 </div>
             </div>
         {% else %}
-            <small>No notes yet...</small>
+            <p>No notes yet...</p>
         {% endif %}
         <hr>
 
 
-        <div class="btn-group">
-            <a class="btn btn-warning" href="/songs/edit/{{song.id}}">Edit Song</a>
+        <div class="btn-group-md">
+            <a class="btn btn-warning me-2" href="/songs/edit/{{song.id}}">Edit Song</a>
             <a class="btn btn-danger" href="/songs/delete/{{song.id}}">Delete Song</a>
         </div>
     {% endif %}

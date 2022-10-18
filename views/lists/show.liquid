@@ -65,9 +65,9 @@
        </ol>
       
         {% if list.owner == session.groupId %}
-            <a class="btn btn-danger" href="/lists/songs/{{list.id}}">Add/Remove Songs</a>
+            <a class="btn btn-danger mb-4" href="/lists/songs/{{list.id}}">Add/Remove Songs</a>
             <br>
-            <hr>
+            <hr class="mt-4">
             <h4>Notes</h4>
             <hr>
             <div class="col-md-6 ms-4">
@@ -90,11 +90,11 @@
                     </div>
                 </div>
             {% else %}
-                <small>No notes yet...</small>
+                <p>No notes yet...</p>
             {% endif %}
             <hr>
-            <div class="btn-group-lg">        
-                <a class="btn btn-warning" href="/lists/edit/{{list.id}}">Edit List</a>
+            <div class="btn-group-md">        
+                <a class="btn btn-warning me-2" href="/lists/edit/{{list.id}}">Edit List</a>
                 <a class="btn btn-danger" href="/lists/delete/{{list.id}}">Delete List</a>
             </div>
         {% endif %}

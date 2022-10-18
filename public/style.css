@@ -66,7 +66,7 @@ nav {
     width: 150px;
 }
 
-#sidebar{
+#sidebar {
     position: fixed;
     top: 59px;
     width: 200px;
@@ -107,7 +107,6 @@ nav {
     padding: 1rem;
 }
 
-
 #main-content {
     padding-bottom: 4rem;
 }
@@ -132,10 +131,6 @@ fieldset {
     text-align: left;
 }
 
-.form-control {
-    margin-bottom: 20px;
-}
-
 .card {
     margin: 10px;
     width: 300px;
@@ -156,7 +151,6 @@ fieldset {
 .group-card-img {
     max-width: 250px;
 }
-
 
 .btn {
     box-shadow: 1px 1px 4px black;
@@ -234,6 +228,10 @@ ul {
 .list-song-checkbox {
     height: 20px;
     width: 20px;
+}
+
+.note {
+    border: 1.5px solid rgb(75,75,75);
 }
 
 .note-x {
