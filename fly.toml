@@ -10,7 +10,7 @@ processes = []
 
 [env]
   PORT = "8080"
-  DATABASE_URL = "mongodb+srv://onepartharmony:FUZZ99@cluster0.oz4y0ph.mongodb.net/setList?retryWrites=true&w=majority"
+  DEPLOYED_URL = "mongodb+srv://onepartharmony:FUZZ99@cluster0.oz4y0ph.mongodb.net/setList?retryWrites=true&w=majority"
   SECRET = "jahbfSDG36098sjknaFAFafjnio423058970jknsdg"
 
 
