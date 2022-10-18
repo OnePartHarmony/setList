@@ -10,9 +10,11 @@
         <label class="form-label">Email Address:</label>
         <input class="form-control-plaintext mb-4" type="email" name="emailAddress" value="{{user.emailAddress}}" required>
         <label class="form-label">Profile Photo Link:</label>
-        <input class="form-control-plaintext mb-4" type="url" name="img" value="{{user.img}}" placeholder="https://i.imgur.com/mySelf.jpg">
+        <input class="form-control-plaintext mb-5" type="url" name="img" value="{{user.img}}" placeholder="https://i.imgur.com/mySelf.jpg">
+        <input class="btn btn-warning" type="submit" value="Update Account">
+        <a class="btn btn-danger" href="/groups">Cancel</a>
       </fieldset>
-      <input class="btn btn-warning" type="submit" value="Update Account">
+      
     </form>
   </div>
 
