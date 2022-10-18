@@ -13,7 +13,11 @@
                 </h4>
         {% endif %}
         <hr>
-        <h5>{{list.description}}</h5>
+        {% if list.description and list.description != "" %}
+            <h5>{{list.description}}</h5>
+            <hr>
+        {% endif %}
+        <h6 style="color: rgb(255,175,9)">Drag and drop to reorder list</h6>
         <hr>
             <ul class="song-list">
                 {% if list.listContents.length > 0 %}
@@ -145,9 +149,9 @@
                     } else {
                         songs[i].parentNode.insertBefore(current, songs[i])
                     }
-                    axios.put(`/lists/reorder/{{list.id}}/${startPosition}/${droppedPosition}`)
-                        .then(location.reload())  
+                    axios.put(`/lists/reorder/{{list.id}}/${startPosition}/${droppedPosition}`) 
                         .catch(err => console.error(err))
+                        .finally(location.reload())
                 }
                 
             })

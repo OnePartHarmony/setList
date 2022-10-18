@@ -108,7 +108,7 @@ router.put("/reorder/:listId/:startPos/:newPos", (req,res) => {
             const newList = arrayMoveImmutable(list.listContents, startPos, newPos)
             req.body.listContents = newList
             return list.updateOne(req.body)
-        })
+        }) 
         .catch(err => res.redirect(`/error?error=${err}`))
 })
 
