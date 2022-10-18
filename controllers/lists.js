@@ -3,6 +3,23 @@ const express = require("express")
 const List = require("../models/lists")
 const Song = require("../models/songs")
 
+/////function to reorder array, from "array-move" that doesn't import properly from node modules////////
+function arrayMoveMutable(array, fromIndex, toIndex) {
+	const startIndex = fromIndex < 0 ? array.length + fromIndex : fromIndex;
+
+	if (startIndex >= 0 && startIndex < array.length) {
+		const endIndex = toIndex < 0 ? array.length + toIndex : toIndex;
+
+		const [item] = array.splice(fromIndex, 1);
+		array.splice(endIndex, 0, item);
+	}
+}
+function arrayMoveImmutable(array, fromIndex, toIndex) {
+	array = [...array];
+	arrayMoveMutable(array, fromIndex, toIndex);
+	return array;
+}
+
 /////router////
 const router = express.Router()
 
@@ -81,14 +98,24 @@ router.get("/edit/:listId", (req,res) => {
         .catch(err => res.redirect(`/error?error=${err}`))
 })
 
-///////////PUT route to UPDATE list/////////////
-
-
+///////////PUT route to UPDATE list ORDER/////////////
+router.put("/reorder/:listId/:startPos/:newPos", (req,res) => {
+    const listId = req.params.listId
+    const startPos = req.params.startPos
+    const newPos = req.params.newPos    
+    List.findById(listId)
+        .then(list => {
+            const newList = arrayMoveImmutable(list.listContents, startPos, newPos)
+            req.body.listContents = newList
+            return list.updateOne(req.body)
+        }) 
+        .catch(err => res.redirect(`/error?error=${err}`))
+})
 
 
 ///////////PUT route to UPDATE list SONGS/////////////
 router.put("/songs/:listId", (req,res) => {
-    let listId = req.params.listId       
+    const listId = req.params.listId       
     /////change list contents to array of checked songs ids///////
     req.body.listContents = Object.keys(req.body)
     ///////change list length to sum of song lengths///////////
@@ -111,6 +138,17 @@ router.put("/songs/:listId", (req,res) => {
             res.redirect(`/lists/${listId}`)
         })
         .catch(err => res.redirect(`/error?error=${err}`)) 
+})
+
+///////////PUT route to UPDATE list/////////////
+router.put("/:listId", (req,res) => {
+    const listId = req.params.listId
+    List.findById(listId)
+        .then(list => {
+            return list.updateOne(req.body)
+        })
+        .then(res.redirect(`/lists/${listId}`))
+        .catch(err => res.redirect(`/error?error=${err}`))
 })
 
 //////////GET route to render DELETE list view////////////

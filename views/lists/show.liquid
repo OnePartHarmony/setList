@@ -1,69 +1,72 @@
 {% layout "layout.liquid" %}
-{% block content %}
-
+{% block content %}     
+    
     <div>
-       <h1>{{list.name}}</h1>
-       {% if list.seconds != "" %}
-            <h4>Length: {{list.minutes}}{{- ":" -}}
-            {% if list.seconds < 10 %}
-                {{- "0" -}}{{- list.seconds -}}
-            {% else %}
-                {{- list.seconds -}}
-            {% endif %}
-            </h4>
-       {% endif %}
-       <hr>
-       <h5>{{list.description}}</h5>
-       <hr>
-       <ol class="song-list">
-            {% if list.listContents.length > 0 %}
-                    {% for song in list.listContents %}
+        <h1>{{list.name}}</h1>
+        {% if list.seconds != "" %}
+                <h4>Length: {{list.minutes}}{{- ":" -}}
+                {% if list.seconds < 10 %}
+                    {{- "0" -}}{{- list.seconds -}}
+                {% else %}
+                    {{- list.seconds -}}
+                {% endif %}
+                </h4>
+        {% endif %}
+        <hr>
+        {% if list.description and list.description != "" %}
+            <h5>{{list.description}}</h5>
+            <hr>
+        {% endif %}
+        <h6 style="color: rgb(255,175,9)">Drag and drop to reorder list</h6>
+        <hr>
+            <ul class="song-list">
+                {% if list.listContents.length > 0 %}
+                        {% for song in list.listContents %}
 
-                        <li>
-                            {%- comment -%} background color alternates {%- endcomment -%}
-                            <div class="list-song mb-4"
-                            {% assign remainder = forloop.index | modulo: 2 %}
-                            {% if remainder == 0 %}
-                               style="background-color: rgb(20,20,20)"
-                            {% else %}
-                                   style="background-color: rgb(75,75,75)"
-                            {% endif %}
-                            >
-                                <h5 class="list-song-name">{{song.name}}</h5>
-                    {%- comment -%} Display key with symbols for sharp or flat {%- endcomment -%}
-                                <h5 class="list-song-key">{{song.key}}
-                                    {% if song.sharp %}
-                                    {{- "&#x266F" -}}
-                                    {% endif %}
-                                    {% if song.flat %}
-                                    {{- "&#x266D" -}}
-                                    {% endif %}
-                                    {% if song.minor %}
-                                    {{- "m" -}}
-                                    {% endif %}
-                                </h5>
-                            {%- comment -%} Display length in format 0:00 {%- endcomment -%}
-                                <h5 class="list-song-time">{{song.minutes}}{{- ":" -}}
-                                    {% if song.seconds < 10 %}
-                                        {{- "0" -}}{{- song.seconds -}}
+                            <li>
+                                {%- comment -%} background color alternates {%- endcomment -%}
+                                <div draggable="true"  class="list-song mb-4"
+                                    {% assign remainder = forloop.index | modulo: 2 %}
+                                    {% if remainder == 0 %}
+                                    style="background: rgb(20,20,20)"
                                     {% else %}
-                                        {{- song.seconds -}}
+                                        style="background: rgb(75,75,75)"
                                     {% endif %}
-                                </h5>
-                                <h6 class="list-song-soloist">
-                                {% if song.soloist != "" %}
-                                   {{song.soloist}}
-                                {% endif %}
-                                </h6>
-                            </div>
-                        </li>
+                                    >
+                                    <h5 class="list-song-name">{{song.name}}</h5>
+                        {%- comment -%} Display key with symbols for sharp or flat {%- endcomment -%}
+                                    <h5 class="list-song-key">{{song.key}}
+                                        {% if song.sharp %}
+                                        {{- "&#x266F" -}}
+                                        {% endif %}
+                                        {% if song.flat %}
+                                        {{- "&#x266D" -}}
+                                        {% endif %}
+                                        {% if song.minor %}
+                                        {{- "m" -}}
+                                        {% endif %}
+                                    </h5>
+                                {%- comment -%} Display length in format 0:00 {%- endcomment -%}
+                                    <h5 class="list-song-time">{{song.minutes}}{{- ":" -}}
+                                        {% if song.seconds < 10 %}
+                                            {{- "0" -}}{{- song.seconds -}}
+                                        {% else %}
+                                            {{- song.seconds -}}
+                                        {% endif %}
+                                    </h5>
+                                    <h6 class="list-song-soloist">
+                                    {% if song.soloist != "" %}
+                                    {{song.soloist}}
+                                    {% endif %}
+                                    </h6>
+                                </div>
+                            </li>
 
-                    {% endfor %}
-            {% else %}
-                    <h4>No songs in this list yet.</h4>
-            {% endif %}
-       </ol>
-      
+                        {% endfor %}
+                {% else %}
+                        <h4>No songs in this list yet.</h4>
+                {% endif %}
+            </ul>
         {% if list.owner == session.groupId %}
             <a class="btn btn-danger mb-4" href="/lists/songs/{{list.id}}">Add/Remove Songs</a>
             <br>
@@ -98,6 +101,71 @@
                 <a class="btn btn-danger" href="/lists/delete/{{list.id}}">Delete List</a>
             </div>
         {% endif %}
-    </div> 
+    </div>
 
+{%- comment -%} script to reorder list by dropping {%- endcomment -%}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js"></script>
+    <script>
+
+        ////drag script/////////
+        let songs = document.querySelectorAll(".list-song")
+        let current
+
+        for (let i=0; i<songs.length; i++) {
+            
+            songs[i].addEventListener("dragstart", () => {
+                current = songs[i]
+                for (let x=0; x<songs.length; x++) {
+                    if (songs[x] != songs[i]) { songs[x].classList.add("suggest")}
+                }
+            })
+
+            songs[i].addEventListener("dragover", (event) => {
+                event.preventDefault()
+                songs[i].classList.add("dragover")
+            })
+
+            songs[i].addEventListener("dragleave", () => {
+                songs[i].classList.remove("dragover")
+            })
+
+            songs[i].addEventListener("dragend", () => {
+                for (let x=0; x<songs.length; x++) {
+                    songs[x].classList.remove("suggest")
+                    songs[x].classList.remove("dragover")
+                }
+            })
+
+            songs[i].addEventListener("drop", (event) => {
+                event.preventDefault()
+                if (songs[i] != current) {
+                    let startPosition = 0, droppedPosition = 0
+                    for (let x=0; x<songs.length; x++) {
+                        if (current == songs[x]) {startPosition = x}
+                        if (songs[i] == songs[x]) {droppedPosition = x}
+                    }
+                    if (startPosition < droppedPosition) {
+                        songs[i].parentNode.insertBefore(current, songs[i].nextSibling)
+                    } else {
+                        songs[i].parentNode.insertBefore(current, songs[i])
+                    }
+                    axios.put(`/lists/reorder/{{list.id}}/${startPosition}/${droppedPosition}`) 
+                        .catch(err => console.error(err))
+                        .finally(location.reload())
+                }
+                
+            })
+        }
+
+    </script>
+
+    <style>
+        .suggest {
+            border: 2px solid rgb(255,175,9);
+        }
+        .dragover {
+            border: 2px solid rgb(209,22,19);
+        }
+
+    </style>
 {% endblock %}
