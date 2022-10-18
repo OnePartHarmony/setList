@@ -34,6 +34,7 @@ router.post("/", (req,res) => {
     /////////add user email to members in case user forgot themself/////////
     spacelessArray.push(req.session.email)
     /////////////remove duplicate emails//////////////
+    //Great use of Set
     let uniqueArray = [...new Set(spacelessArray)]
     req.body.members = uniqueArray
     Group.create(req.body)

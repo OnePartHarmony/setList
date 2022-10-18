@@ -3,7 +3,7 @@ const mongoose = require("../utility/connection")
 const {Schema, model} = mongoose
 
 
-const groupSchema = new Schema({
+const groupSchema = new Schema({ //Names of schemas should be uppercase!
     name: {
         type: String,
         required: true,

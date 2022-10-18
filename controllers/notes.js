@@ -13,6 +13,7 @@ router.post("/:songOrListId", (req,res) => {
     const id = req.params.songOrListId
     req.body.author = req.session.userId
     let date = new Date().toLocaleString() 
+    //Nice detail to add!
     let dateWithoutSeconds = date.substring(0, (date.length - 6)) + date.substring((date.length -3 ),(date.length))
     req.body.date = dateWithoutSeconds
     Song.findById(id)

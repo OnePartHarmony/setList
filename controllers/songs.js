@@ -26,6 +26,7 @@ router.get("/new", (req,res) => {
 ////////POST route to CREATE new song////////////
 router.post("/", (req,res) => {
     req.body.owner = req.session.groupId
+    //Try to remove any unused/commented out code!
     ///change keywords input by user into an array///////
     // let keywordString = req.body.keywords
     // let keywordArray = keywordString.split(",")
