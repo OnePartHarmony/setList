@@ -14,8 +14,7 @@ router.get("/signup", (req,res) => {
 
 //////signup POST to send user info//////////////////
 router.post("/signup", async (req,res) => {
-    console.log("This is the body input for signup: ", req.body)
-    req.body.password = await bcrypt.hash(
+        req.body.password = await bcrypt.hash(
         req.body.password,
         await bcrypt.genSalt(10)
     )
@@ -24,7 +23,6 @@ router.post("/signup", async (req,res) => {
             res.redirect("/user/login")
         })
         .catch(error => {
-            console.error(error)
             res.redirect(`/error?error=username%20already%20taken`)
         })
 })
@@ -48,7 +46,6 @@ router.post("/login", async (req,res) => {
                     req.session.userId = user.id
                     req.session.email = user.emailAddress
                     req.session.userImg = user.img
-                    // console.log("this is req.session: ", req.session)
                     res.redirect("/groups")
                 } else {
                     res.redirect(`/error?error=password%20incorrect`)
@@ -58,7 +55,6 @@ router.post("/login", async (req,res) => {
             }
         })
         .catch(err => {
-            console.error(err)
             res.redirect(`/error?error=${err}`)
         })
 })
@@ -72,7 +68,6 @@ router.get("/logout", (req,res) => {
 /////////logout route/////////////
 router.delete("/logout", (req, res) => {
     req.session.destroy(err => {
-        console.log("session after logout: ", req.session)
         console.log("error on logout?", err)
         res.redirect("/")
     })
